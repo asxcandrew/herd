@@ -1,6 +1,7 @@
 package main
 
 import (
+	"net/http"
 	"time"
 
 	jwt "github.com/appleboy/gin-jwt"
@@ -14,6 +15,8 @@ func main() {
 
 	r.Use(gin.Logger())
 	r.Use(gin.Recovery())
+
+	r.LoadHTMLFiles("templates/index.html")
 
 	authMiddleware := &jwt.GinJWTMiddleware{
 		Realm:         "test zone",
@@ -38,6 +41,12 @@ func main() {
 		TokenHeadName: "Bearer",
 		TimeFunc:      time.Now,
 	}
+
+	r.Static("/assets", "./assets")
+
+	r.GET("/", func(c *gin.Context) {
+		c.HTML(http.StatusOK, "index.html", "")
+	})
 
 	r.POST("/sign_up", H.Signup)
 	r.POST("/sign_in", authMiddleware.LoginHandler)

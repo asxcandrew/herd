@@ -40,3 +40,19 @@
 [[constraint]]
   branch = "master"
   name = "golang.org/x/crypto"
+
+[[constraint]]
+  name = "github.com/go-pg/pg"
+  version = "6.11.2"
+
+[[constraint]]
+  name = "github.com/pelletier/go-toml"
+  version = "1.1.0"
+
+[[constraint]]
+  name = "github.com/BurntSushi/toml"
+  version = "0.3.0"
+
+[[constraint]]
+  name = "github.com/go-pg/migrations"
+  version = "6.2.0"

@@ -1,0 +1,6 @@
+[database]
+name = "databasename"
+addr = "databasehost"
+user = "username"
+pass = "password"
+tls = false

@@ -1,31 +1,45 @@
 package services
 
+import (
+	"github.com/asxcandrew/herd/server/models"
+	"golang.org/x/crypto/bcrypt"
+)
+
 //Login service
-func Login(email string, password string) (string, error) { //should return user model
-	// user find by email
+func Login(email string, password string) (*models.User, error) {
+	user := &models.User{}
+	err := models.DB().Model(user).Where("email = ?", email).Select()
 
-	// byteHash := []byte(user.PassworHash)
+	if err != nil {
+		return nil, err
+	}
 
-	// err := bcrypt.CompareHashAndPassword(byteHash, plainPwd)
-	// if err != nil {
-	// 	log.Println(err)
-	// 	return "", err
-	// }
-	// return user.Id, nil
-	return "", nil
+	byteHash := []byte(user.EncryptedPassword)
+	bytePass := []byte(password)
+
+	err = bcrypt.CompareHashAndPassword(byteHash, bytePass)
+	if err != nil {
+		return nil, err
+	}
+
+	return user, nil
 }
 
 //Register service
-func Register(email string, password string) (string, error) { //should return user model
-	// bytes := []byte(password)
-	// hashedBytes, err := bcrypt.GenerateFromPassword(bytes, bcrypt.DefaultCost)
-	// if err != nil {
-	// 	return "", err
-	// }
+func Register(user *models.User, password string) error {
+	bytes := []byte(password)
+	hashedBytes, err := bcrypt.GenerateFromPassword(bytes, bcrypt.DefaultCost)
+	if err != nil {
+		return err
+	}
 
-	// hash := string(hashedBytes[:])
+	user.EncryptedPassword = string(hashedBytes[:])
 
-	// validate user
-	// create user here with hash
-	return "", nil
+	err = models.CreateUser(user)
+
+	if err != nil {
+		return err
+	}
+
+	return nil
 }

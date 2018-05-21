@@ -1,8 +1,17 @@
-// The Vue build version to load with the `import` command
-// (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue';
+import Element from 'element-ui';
+import VeeValidate from 'vee-validate';
+import { sync } from 'vuex-router-sync';
 import App from './App';
 import router from './router';
+import store from './store';
+
+import './assets/styles/main.scss';
+
+sync(store, router, { moduleName: 'route' });
+
+Vue.use(Element);
+Vue.use(VeeValidate);
 
 Vue.config.productionTip = false;
 
@@ -10,6 +19,7 @@ Vue.config.productionTip = false;
 new Vue({
   el: '#app',
   router,
+  store,
   components: { App },
   template: '<App/>',
 });

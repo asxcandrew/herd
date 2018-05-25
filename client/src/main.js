@@ -1,17 +1,16 @@
 import Vue from 'vue';
 import Element from 'element-ui';
-import VeeValidate from 'vee-validate';
 import { sync } from 'vuex-router-sync';
 import App from './App';
 import router from './router';
 import store from './store';
+import i18n from './lang';
 
 import './assets/styles/main.scss';
 
 sync(store, router, { moduleName: 'route' });
 
 Vue.use(Element);
-Vue.use(VeeValidate);
 
 Vue.config.productionTip = false;
 
@@ -20,6 +19,7 @@ new Vue({
   el: '#app',
   router,
   store,
+  i18n,
   components: { App },
   template: '<App/>',
 });

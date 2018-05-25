@@ -1,0 +1,43 @@
+{
+  "views" : {
+    "login": {
+      "title": "Welcome back.",
+      "message": "Sign in to access your federated feed, follow independent autors and publications from whole free web.",
+      "signUpProposal": "No account?",
+      "signUpButton": "Create one"
+    },
+    "signup": {
+      "title": "Join Herd.",
+      "message": "Create an account to personalize your homepage, follow authors and publications, join free federated publishing network.",
+      "signInProposal": "Already have an account?"
+    }
+  },
+  "components": {
+    "header": {
+      "signInButton": "Sign in",
+      "signUpButton": "Get started"
+    }
+  },
+  "form": {
+    "email": {
+      "name": "Email",
+      "required": "Please input email",
+      "incorrect": "Please input correct email address"
+    },
+    "password": {
+      "name": "Password",
+      "required": "Please input password",
+      "length": "Password must be at least {min} characters"
+    },
+    "passwordConfirmation": {
+      "name": "Confirm password",
+      "required": "Please input password confirmation",
+      "incorrect": ""
+    },
+    "username": {
+      "name": "Username",
+      "required": "Please input username",
+      "length": "Length should be from {min} to {max}"
+    }
+  }
+}

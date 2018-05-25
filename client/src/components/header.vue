@@ -3,7 +3,10 @@
     <el-dialog :visible.sync="loginDialogVisible" customClass="dialog-custom">
       <login/>
     </el-dialog>
-    <el-row type="flex" class="row-bg" justify="center">
+    <el-dialog :visible.sync="signupDialogVisible" customClass="dialog-custom">
+      <signup/>
+    </el-dialog>
+    <el-row type="flex" class="row-bg header-wrapper" justify="center">
       <el-col :span="14">
         <div class="menu-right" v-if="session.user">
           <el-dropdown trigger="hover">
@@ -16,8 +19,8 @@
           </el-dropdown>
         </div>
         <div class="menu-right" v-else>
-          <el-button type="text" @click="loginDialogVisible = true">Sign in</el-button>
-          <el-button type="primary" plain>Get started</el-button>
+          <el-button type="text" @click="loginDialogVisible = true">{{ $t('components.header.signInButton') }}</el-button>
+          <el-button type="primary" @click="signupDialogVisible = true" plain>{{ $t('components.header.signUpButton') }}</el-button>
         </div>
       </el-col>
     </el-row>
@@ -27,6 +30,7 @@
 <script>
 import { mapGetters } from 'vuex';
 import Login from '../views/login.vue';
+import Signup from '../views/signup.vue';
 
 export default {
   name: 'app-header',
@@ -35,6 +39,7 @@ export default {
 
   components: {
     'login': Login,
+    'signup': Signup,
   },
 
   created() {
@@ -43,7 +48,8 @@ export default {
 
   data() {
     return {
-      loginDialogVisible: false
+      loginDialogVisible: false,
+      signupDialogVisible: false,
     };
   },
 
@@ -59,7 +65,7 @@ export default {
 };
 </script>
 <style lang="scss">
-.el-header {
+.header-wrapper {
   color: #333;
   line-height: 60px;
   .menu-right {

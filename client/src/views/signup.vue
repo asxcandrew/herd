@@ -11,6 +11,9 @@
       <el-form-item prop="email">
         <el-input v-model="form.email" :placeholder="$t('form.email.name')"></el-input>
       </el-form-item>
+      <el-form-item prop="name">
+        <el-input v-model="form.name" :placeholder="$t('form.name.name')"></el-input>
+      </el-form-item>
       <el-form-item prop="password">
         <el-input type="password" v-model="form.password" :placeholder="$t('form.password.name')" maxlength=20></el-input>
       </el-form-item>
@@ -29,10 +32,19 @@
 export default {
   name: 'signup',
   data() {
+    var validateConfirmation = (rule, value, callback) => {
+      if (value !== this.form.password) {
+        callback(new Error(this.$t('form.passwordConfirmation.incorrect')));
+      } else {
+        callback();
+      }
+    };
+
     return {
       form: {
         email: '',
         username: '',
+        name: '',
         password: '',
         passwordConfirmation: '',
       },
@@ -45,12 +57,17 @@ export default {
           { required: true, message: this.$t('form.email.required'), trigger: 'blur' },
           { type: 'email', message: this.$t('form.email.incorrect'), trigger: 'blur' }
         ],
+        name: [
+          { required: true, message: this.$t('form.name.required'), trigger: 'blur' },
+          { min: 3, max: 20, message: this.$t('form.name.length', {min: 3, max: 20}), trigger: 'blur' },
+        ],
         password: [
           { required: true, message: this.$t('form.password.required'), trigger: 'blur' },
           { min: 8, message: this.$t('form.password.length', {min: 8}), trigger: 'blur' }
         ],
         passwordConfirmation: [
           { required: true, message: this.$t('form.passwordConfirmation.required'), trigger: 'blur' },
+          { validator: validateConfirmation, trigger: 'blur' },
         ],
       }
     }

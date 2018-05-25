@@ -24,6 +24,11 @@
       "required": "Please input email",
       "incorrect": "Please input correct email address"
     },
+    "name": {
+      "name": "Enter your name",
+      "required": "Please input your name",
+      "length": "Length should be from {min} to {max}"
+    },
     "password": {
       "name": "Password",
       "required": "Please input password",
@@ -32,7 +37,7 @@
     "passwordConfirmation": {
       "name": "Confirm password",
       "required": "Please input password confirmation",
-      "incorrect": ""
+      "incorrect": "Passwords doesn't match"
     },
     "username": {
       "name": "Username",

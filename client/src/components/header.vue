@@ -19,8 +19,12 @@
           </el-dropdown>
         </div>
         <div class="menu-right" v-else>
-          <el-button type="text" @click="loginDialogVisible = true">{{ $t('components.header.signInButton') }}</el-button>
-          <el-button type="primary" @click="signupDialogVisible = true" plain>{{ $t('components.header.signUpButton') }}</el-button>
+          <el-button type="text" @click="loginDialogVisible = true">
+            {{ $t('components.header.signInButton') }}
+          </el-button>
+          <el-button type="primary" @click="signupDialogVisible = true" plain>
+            {{ $t('components.header.signUpButton') }}
+          </el-button>
         </div>
       </el-col>
     </el-row>
@@ -38,12 +42,8 @@ export default {
   computed: mapGetters({ session: 'session' }),
 
   components: {
-    'login': Login,
-    'signup': Signup,
-  },
-
-  created() {
-    this.$store.dispatch('getCurrentUser')
+    Login,
+    Signup,
   },
 
   data() {
@@ -57,9 +57,6 @@ export default {
     logout() {
       this.$store.dispatch('deleteToken');
       this.$router.replace({ path: '/' });
-    },
-    signIn() {
-      console.log('signIn');
     },
   },
 };

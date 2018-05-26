@@ -1,34 +1,44 @@
 import { axios } from '../utils';
 
-function Resource(base, otherActions) {
+function PublicResource(base, actions) {
   this.base = base;
-  Object.assign(this, otherActions);
+  this.api = axios.public;
+  Object.assign(this, actions);
 }
 
-Resource.prototype = {
+function AuthorizedResource(base, actions) {
+  this.base = base;
+  this.api = axios.authorized;
+  Object.assign(this, actions);
+}
+
+const proto = {
   get(id, options) {
     let url = `/${this.base}`;
     if (id !== undefined) {
       url += `/${id}`;
     }
-    return axios.get(url, options);
+    return this.api.get(url, options);
   },
   delete(id, options) {
     const url = `/${this.base}/${id}`;
-    return axios.delete(url, options);
+    return this.api.delete(url, options);
   },
   post(options) {
     const url = `/${this.base}`;
-    return axios.post(url, options);
+    return this.api.post(url, options);
   },
   put(id, options) {
     const url = `/${this.base}/${id}`;
-    return axios.put(url, options);
+    return this.api.put(url, options);
   },
   patch(id, options) {
     const url = `/${this.base}/${id}`;
-    return axios.patch(url, options);
+    return this.api.patch(url, options);
   },
 };
 
-export default Resource;
+AuthorizedResource.prototype = Object.create(proto, {});
+PublicResource.prototype = Object.create(proto, {});
+
+export { PublicResource, AuthorizedResource };

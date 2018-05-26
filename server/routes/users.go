@@ -1,9 +1,12 @@
 package routes
 
-import "github.com/gin-gonic/gin"
+import (
+	H "github.com/asxcandrew/herd/server/handlers"
+	"github.com/gin-gonic/gin"
+)
 
 //UsersRoutes users path group
-func UsersRoutes(route *gin.Engine) {
+func UsersRoutes(route *gin.RouterGroup) {
 	user := route.Group("/users")
-	user.GET("me")
+	user.GET("me", H.CurrentUser)
 }

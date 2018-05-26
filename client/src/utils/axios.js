@@ -1,18 +1,26 @@
 import axios from 'axios';
 // import storage from './storage'
 
-const instance = axios.create({
-  baseURL: process.env.BASE_URL,
-  timeout: 5000,
-  headers: {
-    // 'X-Custom-Header': 'foobar',
-    // // true: need, false: dont need
-    // 'Authorization': true,
-    // 'X-Requested-With': 'XMLHttpRequest'
-  },
-});
+const createAxios = (url)=> {
+  return axios.create({
+    baseURL: url,
+    responseType: 'json',
+    timeout: 5000,
+    headers: {
+      // 'X-Custom-Header': 'foobar',
+      // // true: need, false: dont need
+      // 'Authorization': true,
+      // 'X-Requested-With': 'XMLHttpRequest'
+    },
+  });
+};
 
-// instance.interceptors.request.use(config => {
+const instance = {
+  public: createAxios('/api/v1/p'),
+  authorized: createAxios('/api/v1/a'),
+};
+
+// instance.authorized.interceptors.request.use(config => {
 //   // Add authorization in the header
 //   // TODO: token in store
 //   const token = storage.get('wedn_net_access_token')

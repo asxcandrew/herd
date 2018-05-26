@@ -35,7 +35,7 @@ func Register(user *models.User, password string) error {
 
 	user.EncryptedPassword = string(hashedBytes[:])
 
-	err = models.CreateUser(user)
+	err = user.Create()
 
 	if err != nil {
 		return err

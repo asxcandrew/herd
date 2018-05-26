@@ -1,3 +1,3 @@
-import Resource from './resource';
+import { AuthorizedResource } from './resource';
 
-export default new Resource('users');
+export default new AuthorizedResource('users');

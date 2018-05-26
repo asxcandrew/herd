@@ -1,4 +1,4 @@
-import TokenService from './tokens';
+import PublicService from './public';
 import UserService from './users';
 
-export { TokenService, UserService };
+export { PublicService, UserService };

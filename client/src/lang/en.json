@@ -42,7 +42,8 @@
     "username": {
       "name": "Username",
       "required": "Please input username",
-      "length": "Length should be from {min} to {max}"
+      "length": "Length should be from {min} to {max}",
+      "taken": "Sorry, username has already been taken"
     }
   }
 }

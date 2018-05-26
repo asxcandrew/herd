@@ -1,9 +1,11 @@
 package models
 
-import validator "gopkg.in/go-playground/validator.v8"
+import (
+	validator "gopkg.in/go-playground/validator.v8"
+)
 
 //CreateUser creates user with validation
-func CreateUser(u *User) error {
+func (u *User) Create() error {
 	validate := validator.New(&validator.Config{TagName: "validate"})
 	err := validate.Struct(u)
 
@@ -17,4 +19,16 @@ func CreateUser(u *User) error {
 		return err
 	}
 	return nil
+}
+
+func IsAvailableUsername(username string) (bool, error) {
+	count, err := DB().Model((*User)(nil)).Where("username = ?", username).Count()
+	if err != nil {
+		return false, err
+	}
+
+	if count == 0 {
+		return true, nil
+	}
+	return false, nil
 }

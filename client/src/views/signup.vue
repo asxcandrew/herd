@@ -15,24 +15,37 @@
         <el-input v-model="form.name" :placeholder="$t('form.name.name')"></el-input>
       </el-form-item>
       <el-form-item prop="password">
-        <el-input type="password" v-model="form.password" :placeholder="$t('form.password.name')" maxlength=20></el-input>
+        <el-input
+          type="password"
+          v-model="form.password"
+          :placeholder="$t('form.password.name')"
+          maxlength=20>
+        </el-input>
       </el-form-item>
       <el-form-item prop="passwordConfirmation">
-        <el-input type="password" v-model="form.passwordConfirmation" :placeholder="$t('form.passwordConfirmation.name')"></el-input>
+        <el-input
+          type="password"
+          v-model="form.passwordConfirmation"
+          :placeholder="$t('form.passwordConfirmation.name')">
+        </el-input>
       </el-form-item>
     </el-form>
     <p>
       {{ $t("views.signup.signInProposal") }}
-      <el-button type="text" @click="loginDialogVisible = true">{{ $t("components.header.signInButton") }}</el-button>.
+      <el-button type="text" @click="loginDialogVisible = true">
+        {{ $t("components.header.signInButton") }}
+      </el-button>.
     </p>
   </div>
 </template>
 
 <script>
+import { PublicService } from '../services';
+
 export default {
   name: 'signup',
   data() {
-    var validateConfirmation = (rule, value, callback) => {
+    const validateConfirmation = (rule, value, callback) => {
       if (value !== this.form.password) {
         callback(new Error(this.$t('form.passwordConfirmation.incorrect')));
       } else {
@@ -40,7 +53,16 @@ export default {
       }
     };
 
+    const checkUsernameUniqueness = (rule, value, callback) => {
+      PublicService.usernameAvailability(value).then(() => {
+        callback();
+      }).catch(() => {
+        callback(new Error(this.$t('form.username.taken')));
+      });
+    };
+
     return {
+      showUsernameLoadingIcon: false,
       form: {
         email: '',
         username: '',
@@ -51,26 +73,27 @@ export default {
       rules: {
         username: [
           { required: true, message: this.$t('form.username.required'), trigger: 'blur' },
-          { min: 3, max: 20, message: this.$t('form.username.length', {min: 3, max: 20}), trigger: 'blur' },
+          { min: 3, max: 20, message: this.$t('form.username.length', { min: 3, max: 20 }), trigger: 'blur' },
+          { validator: checkUsernameUniqueness, trigger: 'blur' },
         ],
         email: [
           { required: true, message: this.$t('form.email.required'), trigger: 'blur' },
-          { type: 'email', message: this.$t('form.email.incorrect'), trigger: 'blur' }
+          { type: 'email', message: this.$t('form.email.incorrect'), trigger: 'blur' },
         ],
         name: [
           { required: true, message: this.$t('form.name.required'), trigger: 'blur' },
-          { min: 3, max: 20, message: this.$t('form.name.length', {min: 3, max: 20}), trigger: 'blur' },
+          { min: 3, max: 20, message: this.$t('form.name.length', { min: 3, max: 20 }), trigger: 'blur' },
         ],
         password: [
           { required: true, message: this.$t('form.password.required'), trigger: 'blur' },
-          { min: 8, message: this.$t('form.password.length', {min: 8}), trigger: 'blur' }
+          { min: 8, message: this.$t('form.password.length', { min: 8 }), trigger: 'blur' },
         ],
         passwordConfirmation: [
           { required: true, message: this.$t('form.passwordConfirmation.required'), trigger: 'blur' },
           { validator: validateConfirmation, trigger: 'blur' },
         ],
-      }
-    }
+      },
+    };
   },
 };
 </script>

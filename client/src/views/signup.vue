@@ -32,7 +32,7 @@
     </el-form>
     <p>
       {{ $t("views.signup.signInProposal") }}
-      <el-button type="text" @click="loginDialogVisible = true">
+      <el-button type="text" @click="showSignin()">
         {{ $t("components.header.signInButton") }}
       </el-button>.
     </p>
@@ -44,6 +44,11 @@ import { PublicService } from '../services';
 
 export default {
   name: 'signup',
+  methods: {
+    showSignin() {
+      this.$store.dispatch('showModal', 'signin');
+    },
+  },
   data() {
     const validateConfirmation = (rule, value, callback) => {
       if (value !== this.form.password) {

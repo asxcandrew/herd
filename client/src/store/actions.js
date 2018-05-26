@@ -1,4 +1,5 @@
 import { TokenService, UserService } from '../services';
+import defaults from './defaults';
 
 const createToken = ({ commit }, { username, password }) => {
   return TokenService.post({
@@ -34,4 +35,12 @@ const getCurrentUser = ({ commit }) => {
     });
 };
 
-export { createToken, checkToken, getCurrentUser };
+const showModal = ({ commit }, name) => {
+  commit('CHANGE_MODALS', Object.assign(defaults().modals, { [name]: true }));
+};
+
+const closeModal = ({ commit }, name) => {
+  commit('CHANGE_MODALS', { [name]: false });
+};
+
+export { createToken, checkToken, getCurrentUser, showModal, closeModal };

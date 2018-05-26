@@ -10,4 +10,8 @@ const CHANGE_SESSION = (state, session) => {
   storage.set('wedn_net_session_info', state.session);
 };
 
-export { CHANGE_SESSION };
+const CHANGE_MODALS = (state, modals) => {
+  Object.assign(state.modals, modals);
+};
+
+export { CHANGE_SESSION, CHANGE_MODALS };

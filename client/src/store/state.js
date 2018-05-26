@@ -1,7 +1,9 @@
 import { storage } from '../utils';
+import defaults from './defaults';
 
 const state = {
   session: storage.get('wedn_net_session_info') || {},
+  modals: defaults().modals,
 };
 
 // if (state.session && state.session.token) {

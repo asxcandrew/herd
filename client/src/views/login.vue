@@ -13,7 +13,7 @@
     </el-form>
     <p>
       {{ $t("views.login.signUpProposal") }}
-      <el-button type="text" @click="loginDialogVisible = true">
+      <el-button type="text" @click="showSignup()">
         {{ $t("views.login.signUpButton") }}
       </el-button>.
     </p>
@@ -23,6 +23,11 @@
 <script>
 export default {
   name: 'login',
+  methods: {
+    showSignup() {
+      this.$store.dispatch('showModal', 'signup');
+    },
+  },
   data() {
     return {
       form: {

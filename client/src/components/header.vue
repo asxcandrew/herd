@@ -1,9 +1,9 @@
 <template>
   <el-header>
-    <el-dialog :visible.sync="loginDialogVisible" customClass="dialog-custom">
+    <el-dialog :visible="modals.signin" @close="closeModal('signin')" customClass="dialog-custom">
       <login/>
     </el-dialog>
-    <el-dialog :visible.sync="signupDialogVisible" customClass="dialog-custom">
+    <el-dialog :visible="modals.signup" @close="closeModal('signup')" customClass="dialog-custom">
       <signup/>
     </el-dialog>
     <el-row type="flex" class="row-bg header-wrapper" justify="center">
@@ -19,10 +19,10 @@
           </el-dropdown>
         </div>
         <div class="menu-right" v-else>
-          <el-button type="text" @click="loginDialogVisible = true">
+          <el-button type="text" @click="showModal('signin')">
             {{ $t('components.header.signInButton') }}
           </el-button>
-          <el-button type="primary" @click="signupDialogVisible = true" plain>
+          <el-button type="primary" @click="showModal('signup')" plain>
             {{ $t('components.header.signUpButton') }}
           </el-button>
         </div>
@@ -38,22 +38,21 @@ import Signup from '../views/signup.vue';
 
 export default {
   name: 'app-header',
-
-  computed: mapGetters({ session: 'session' }),
+  computed: mapGetters({ session: 'session', modals: 'modals' }),
 
   components: {
     Login,
     Signup,
   },
 
-  data() {
-    return {
-      loginDialogVisible: false,
-      signupDialogVisible: false,
-    };
-  },
-
   methods: {
+// TODO: Move this logic to shared customized modal
+    showModal(modal) {
+      this.$store.dispatch('showModal', modal);
+    },
+    closeModal(modal) {
+      this.$store.dispatch('closeModal', modal);
+    },
     logout() {
       this.$store.dispatch('deleteToken');
       this.$router.replace({ path: '/' });

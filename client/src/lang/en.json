@@ -4,12 +4,14 @@
       "title": "Welcome back.",
       "message": "Sign in to access your federated feed, follow independent autors and publications from whole free web.",
       "signUpProposal": "No account?",
-      "signUpButton": "Create one"
+      "signUpButton": "Create one",
+      "submitButton": "Sign in"
     },
     "signup": {
       "title": "Join Herd.",
       "message": "Create an account to personalize your homepage, follow authors and publications, join free federated publishing network.",
-      "signInProposal": "Already have an account?"
+      "signInProposal": "Already have an account?",
+      "submitButton": "Join"
     }
   },
   "components": {

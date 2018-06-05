@@ -15,10 +15,8 @@ func ApiRoutes(r *gin.Engine) {
 
 	authorized := v1.Group("/a")
 
-	UsersRoutes(authorized)
-
-	// authorized.Use(authMiddleware.MiddlewareFunc())
-	// {
-
-	// }
+	authorized.Use(H.AuthMiddleware().MiddlewareFunc())
+	{
+		UsersRoutes(authorized)
+	}
 }

@@ -10,7 +10,7 @@
       <el-col :span="14">
         <div class="menu-right" v-if="session.user">
           <el-dropdown trigger="hover">
-            <span class="el-dropdown-link userinfo-inner">{{"session.user.name"}}</span>
+            <span class="el-dropdown-link userinfo-inner">{{ session.user.name }}</span>
             <el-dropdown-menu slot="dropdown">
               <el-dropdown-item>Profile</el-dropdown-item>
               <el-dropdown-item>Settings</el-dropdown-item>
@@ -54,8 +54,9 @@ export default {
       this.$store.dispatch('closeModal', modal);
     },
     logout() {
-      this.$store.dispatch('deleteToken');
-      this.$router.replace({ path: '/' });
+      this.$store.dispatch('signOut').then(() => {
+        this.$router.replace({ path: '/' });
+      })
     },
   },
 };
@@ -70,7 +71,7 @@ export default {
     float: right;
     .userinfo-inner {
       cursor: pointer;
-      color:#fff;
+      // color:#fff;
       img {
         width: 40px;
         height: 40px;

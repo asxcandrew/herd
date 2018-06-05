@@ -29,6 +29,9 @@
           :placeholder="$t('form.passwordConfirmation.name')">
         </el-input>
       </el-form-item>
+      <el-form-item>
+        <el-button type="primary" @click="onSubmit">{{ $t("views.signup.submitButton") }}</el-button>
+      </el-form-item>
     </el-form>
     <p>
       {{ $t("views.signup.signInProposal") }}
@@ -47,6 +50,14 @@ export default {
   methods: {
     showSignin() {
       this.$store.dispatch('showModal', 'signin');
+    },
+    onSubmit() {
+      this.$refs['form'].validate((valid) => {
+        if (valid) {
+          this.$store.dispatch('signUp', this.form);
+          this.$store.dispatch('closeModal', 'signup');
+        }
+      })
     },
   },
   data() {
@@ -102,6 +113,3 @@ export default {
   },
 };
 </script>
-
-<style>
-</style>

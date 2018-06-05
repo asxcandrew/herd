@@ -1,13 +1,29 @@
-import { TokenService, UserService } from '../services';
+import { PublicService } from '../services';
 import defaults from './defaults';
 
-const createToken = ({ commit }, { username, password }) => {
-  return TokenService.post({
-    username: username.trim(),
-    password: password.trim(),
+const signIn = ({ commit, dispatch }, form) => {
+  return PublicService.signin({
+    username: form.email.trim(),
+    password: form.password.trim(),
   }).then(res => {
-    commit('CHANGE_SESSION', { token: res.data.token });
-    return res.data.token;
+    commit('CHANGE_SESSION', { token: res.data.token, token_expiration: res.data.expire });
+    return dispatch('getCurrentUser');
+  });
+};
+
+const signUp = ({ commit }, form ) => {
+  return PublicService.signup(form).then((res) => {
+    commit('CHANGE_SESSION', { token: res.data.token, token_expiration: res.data.expire });
+  }).catch(() => {
+    resolve(false);
+  });
+};
+
+const signOut = ({ commit }) => {
+  return new Promise((resolve, reject) => {
+    commit('DESTROY_SESSION');
+  }).catch(() => {
+    resolve(false);
   });
 };
 
@@ -27,14 +43,6 @@ const checkToken = ({ commit, getters }) => {
   });
 };
 
-const getCurrentUser = ({ commit }) => {
-  return UserService.get('me')
-    .then(res => {
-      commit('CHANGE_SESSION', { user: res.data });
-      return res.data;
-    });
-};
-
 const showModal = ({ commit }, name) => {
   commit('CHANGE_MODALS', Object.assign(defaults().modals, { [name]: true }));
 };
@@ -43,4 +51,4 @@ const closeModal = ({ commit }, name) => {
   commit('CHANGE_MODALS', { [name]: false });
 };
 
-export { createToken, checkToken, getCurrentUser, showModal, closeModal };
+export { signOut, showModal, closeModal, signUp, signIn };

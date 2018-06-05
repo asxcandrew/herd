@@ -30,7 +30,7 @@ func AuthMiddleware() *jwt.GinJWTMiddleware {
 			MaxRefresh:    time.Hour,
 			Authenticator: Auth,
 			Authorizator: func(userId string, c *gin.Context) bool {
-				return false
+				return true
 			},
 			Unauthorized: func(c *gin.Context, code int, message string) {
 				c.JSON(code, gin.H{

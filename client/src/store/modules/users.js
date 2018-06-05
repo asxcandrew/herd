@@ -1,7 +1,5 @@
-/**
- * Initial state
- * @type {Object}
- */
+import { UserService } from '../../services';
+
 const state = {
 
 };
@@ -27,7 +25,12 @@ const mutations = {
  * @type {Object}
  */
 const actions = {
-
+  getCurrentUser ({ commit }) {
+    return UserService.get('me')
+      .then(res => {
+        commit('CHANGE_SESSION', { user: res.data.data });
+      });
+  },
 };
 
 // Export module

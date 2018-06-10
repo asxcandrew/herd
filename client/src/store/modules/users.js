@@ -25,9 +25,9 @@ const mutations = {
  * @type {Object}
  */
 const actions = {
-  getCurrentUser ({ commit }) {
+  getCurrentUser({ commit }) {
     return UserService.get('me')
-      .then(res => {
+      .then((res) => {
         commit('CHANGE_SESSION', { user: res.data.data });
       });
   },

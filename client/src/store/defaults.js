@@ -1,10 +1,8 @@
-const defaults = ()=> {
-  return {
-    modals: {
-      signin: false,
-      signup: false,
-    }
-  }
-};
+const defaults = () => ({
+  modals: {
+    signin: false,
+    signup: false,
+  },
+});
 
 export default defaults;

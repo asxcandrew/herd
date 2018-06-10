@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { authHeader } from './auth';
 // import storage from './storage'
 
 const createAxios = (url)=> {
@@ -20,14 +21,10 @@ const instance = {
   authorized: createAxios('/api/v1/a'),
 };
 
-// instance.authorized.interceptors.request.use(config => {
-//   // Add authorization in the header
-//   // TODO: token in store
-//   const token = storage.get('wedn_net_access_token')
-//   if (token && config.headers.Authorization) {
-//     config.headers.Authorization = `Bearer ${token}`
-//   }
-//   return config
-// })
+instance.authorized.interceptors.request.use((config) => {
+  config.headers.Authorization = authHeader();
+
+  return config;
+});
 
 export default instance;

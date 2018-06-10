@@ -17,7 +17,11 @@
   "components": {
     "header": {
       "signInButton": "Sign in",
-      "signUpButton": "Get started"
+      "signUpButton": "Get started",
+      "dropdown": {
+        "newStory": "New story",
+        "signOut": "Sign out"
+      }
     }
   },
   "form": {

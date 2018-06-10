@@ -1,20 +1,12 @@
 
-// import mainRoutes from './main-routes'
+import profileRoutes from './profile-routes';
 
 export default [
-  // ## login page
-  {
-    name: 'login',
-    path: '/login',
-    meta: { requiresAuth: false },
-    component: () => import('../views/login'),
-  },
-  // ## main page
   {
     path: '/',
-    meta: { requiresAuth: true },
+    meta: { requiresAuth: false },
     component: () => import(/* webpackChunkName: 'common' */ '../views/layout'),
-    // children: mainRoutes
+    children: profileRoutes,
   },
   // ## not found page
   // {

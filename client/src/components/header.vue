@@ -12,9 +12,14 @@
           <el-dropdown trigger="hover">
             <span class="el-dropdown-link userinfo-inner">{{ session.user.name }}</span>
             <el-dropdown-menu slot="dropdown">
+              <el-dropdown-item @click.native="$router.push({ name: 'new-story'})">
+                {{ $t('components.header.dropdown.newStory') }}
+              </el-dropdown-item>
               <el-dropdown-item>Profile</el-dropdown-item>
               <el-dropdown-item>Settings</el-dropdown-item>
-              <el-dropdown-item divided @click.native="logout">Logout</el-dropdown-item>
+              <el-dropdown-item divided @click.native="logout">
+                {{ $t('components.header.dropdown.signOut') }}
+              </el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
         </div>
@@ -33,8 +38,8 @@
 
 <script>
 import { mapGetters } from 'vuex';
-import Login from '../views/login.vue';
-import Signup from '../views/signup.vue';
+import Login from '../views/login';
+import Signup from '../views/signup';
 
 export default {
   name: 'app-header',
@@ -46,7 +51,7 @@ export default {
   },
 
   methods: {
-// TODO: Move this logic to shared customized modal
+    // TODO: Move this logic to shared customized modal
     showModal(modal) {
       this.$store.dispatch('showModal', modal);
     },
@@ -56,7 +61,7 @@ export default {
     logout() {
       this.$store.dispatch('signOut').then(() => {
         this.$router.replace({ path: '/' });
-      })
+      });
     },
   },
 };

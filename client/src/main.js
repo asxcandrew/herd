@@ -2,8 +2,8 @@ import Vue from 'vue';
 import Element from 'element-ui';
 import { sync } from 'vuex-router-sync';
 import App from './App';
-import router from './router';
 import store from './store';
+import router from './router';
 import i18n from './lang';
 
 import './assets/styles/main.scss';

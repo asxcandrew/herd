@@ -2,7 +2,7 @@ import { storage } from '../utils';
 import defaults from './defaults';
 
 const state = {
-  session: storage.get('wedn_net_session_info') || {},
+  session: storage.get('session_info') || {},
   modals: defaults().modals,
 };
 

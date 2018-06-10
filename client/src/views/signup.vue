@@ -30,7 +30,9 @@
         </el-input>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" @click="onSubmit">{{ $t("views.signup.submitButton") }}</el-button>
+        <el-button type="primary" @click="onSubmit">
+          {{ $t("views.signup.submitButton") }}
+        </el-button>
       </el-form-item>
     </el-form>
     <p>
@@ -52,12 +54,12 @@ export default {
       this.$store.dispatch('showModal', 'signin');
     },
     onSubmit() {
-      this.$refs['form'].validate((valid) => {
+      this.$refs.form.validate((valid) => {
         if (valid) {
           this.$store.dispatch('signUp', this.form);
           this.$store.dispatch('closeModal', 'signup');
         }
-      })
+      });
     },
   },
   data() {

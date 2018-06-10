@@ -38,7 +38,7 @@ export default {
       this.$store.dispatch('showModal', 'signup');
     },
     onSubmit() {
-      this.$refs['form'].validate((valid) => {
+      this.$refs.form.validate((valid) => {
         if (valid) {
           this.$store.dispatch('signIn', this.form)
             .then(() => {
@@ -48,7 +48,7 @@ export default {
               this.loginError = error.response.data.message;
             });
         }
-      })
+      });
     },
   },
   data() {

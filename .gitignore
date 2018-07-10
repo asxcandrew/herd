@@ -1,6 +1,8 @@
 .DS_Store
 node_modules/
-vendor/
+server/vendor
+server/build
+client/release/
 server/assets/
 /dist/
 npm-debug.log*

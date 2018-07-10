@@ -5,13 +5,13 @@
   "author": "Andrey Skoryk <asxcandrew@gmail.com>",
   "private": true,
   "scripts": {
-    "dev": "webpack --env.BASE_URL=127.0.0.1:8080 --watch --config client/build/webpack.dev.conf.js",
+    "dev": "webpack-dev-server --inline --progress --hot --config build/webpack.dev.conf.js --env.BASE_URL=127.0.0.1:8080",
     "start": "npm run dev",
     "unit": "jest --config test/unit/jest.conf.js --coverage",
     "e2e": "node test/e2e/runner.js",
     "test": "npm run unit && npm run e2e",
     "lint": "eslint --ext .js,.vue src test/unit test/e2e/specs",
-    "build": "node client/build/build.js"
+    "build": "node build/build.js"
   },
   "dependencies": {
     "axios": "^0.18.0",
@@ -20,25 +20,26 @@
     "store": "^2.0.12",
     "vue": "^2.5.2",
     "vue-i18n": "^7.7.0",
+    "vue-quill-editor": "^3.0.6",
     "vue-router": "^3.0.1",
     "vuex": "^3.0.1",
     "vuex-router-sync": "^5.0.0"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.2",
-    "babel-core": "^6.22.1",
+    "babel-core": "^6.26.3",
     "babel-eslint": "^8.2.1",
     "babel-helper-vue-jsx-merge-props": "^2.0.3",
     "babel-jest": "^21.0.2",
-    "babel-loader": "^7.1.1",
+    "babel-loader": "^7.1.5",
     "babel-plugin-dynamic-import-node": "^1.2.0",
     "babel-plugin-syntax-jsx": "^6.18.0",
     "babel-plugin-transform-es2015-modules-commonjs": "^6.26.0",
     "babel-plugin-transform-runtime": "^6.22.0",
     "babel-plugin-transform-vue-jsx": "^3.5.0",
     "babel-preset-env": "^1.3.2",
-    "babel-preset-stage-2": "^6.22.0",
-    "babel-register": "^6.22.0",
+    "babel-preset-stage-2": "^6.24.1",
+    "babel-register": "^6.26.0",
     "chalk": "^2.0.1",
     "chromedriver": "^2.27.2",
     "copy-webpack-plugin": "^4.0.1",
@@ -54,6 +55,7 @@
     "extract-text-webpack-plugin": "^3.0.0",
     "file-loader": "^1.1.4",
     "friendly-errors-webpack-plugin": "^1.6.1",
+    "html-webpack-plugin": "^3.2.0",
     "jest": "^22.0.4",
     "jest-serializer-vue": "^0.3.0",
     "nightwatch": "^0.9.12",
@@ -78,6 +80,7 @@
     "vue-template-compiler": "^2.5.2",
     "webpack": "^3.6.0",
     "webpack-bundle-analyzer": "^2.9.0",
+    "webpack-dev-server": "^2.11.2",
     "webpack-merge": "^4.1.0"
   },
   "engines": {

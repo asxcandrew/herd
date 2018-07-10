@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { authHeader } from './auth';
+import auth from './auth';
 // import storage from './storage'
 
 const createAxios = (url)=> {
@@ -22,7 +22,7 @@ const instance = {
 };
 
 instance.authorized.interceptors.request.use((config) => {
-  config.headers.Authorization = authHeader();
+  config.headers.Authorization = auth.authHeader();
 
   return config;
 });

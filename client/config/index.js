@@ -7,15 +7,18 @@ const path = require('path')
 module.exports = {
   dev: {
 
+    host: '127.0.0.1',
+    port: '8000',
+
     // Paths
-    assetsSubDirectory: 'static',
-    assetsPublicPath: 'assets/',
+    assetsSubDirectory: '/static/',
+    assetsPublicPath: '/assets/',
     proxyTable: {},
 
     // Use Eslint Loader?
     // If true, your code will be linted during bundling and
     // linting errors and warnings will be shown in the console.
-    useEslint: true,
+    useEslint: false,
     // If true, eslint errors and warnings will also be shown in the error overlay
     // in the browser.
     showEslintErrorsInOverlay: false,
@@ -37,10 +40,10 @@ module.exports = {
 
   build: {
     // Template for index.html
-    // index: path.resolve(__dirname, '../dist/index.html'),
+    index: path.resolve(__dirname, '../release/index.html'),
 
     // Paths
-    assetsRoot: path.resolve(__dirname, '../../server/assets'),
+    assetsRoot: path.resolve(__dirname, '../release'),
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
 

@@ -1,11 +1,12 @@
 
 import profileRoutes from './profile-routes';
+import Layout from '../views/layout';
 
 export default [
   {
     path: '/',
     meta: { requiresAuth: false },
-    component: () => import(/* webpackChunkName: 'common' */ '../views/layout'),
+    component: Layout,
     children: profileRoutes,
   },
   // ## not found page

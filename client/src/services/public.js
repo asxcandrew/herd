@@ -1,20 +1,30 @@
-import { PublicResource } from './resource';
+import { BaseResource } from './resource';
+import { axios } from '../utils';
 
-const usernameAvailability = (username) => {
-  const url = `/username_availability/${username}`;
-  return this.a.api.get(url, {});
-};
+class PublicResource extends BaseResource {
+  constructor(base) {
+    super()
+    this.base = base;
+    this.api = axios.public;    
+  };
 
-const signup = (data) => {
-  const url = '/sign_up';
-  return this.a.api.post(url, data);
-};
+  usernameAvailability(username){
+    const url = `/username_availability/${username}`;
+    return this.api.get(url, {});
+  };
+  
+  signup(data){
+    const url = '/sign_up';
+    return this.api.post(url, data);
+  };
 
-const signin = (data) => {
-  const url = '/sign_in';
-  return this.a.api.post(url, data);
-};
+  signin(data){
+    const url = '/sign_in';
+    return this.api.post(url, data);
+  };
 
-const res = new PublicResource('', { usernameAvailability, signup, signin });
+}
+
+const res = new PublicResource('');
 
 export default res;

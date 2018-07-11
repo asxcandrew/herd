@@ -5,7 +5,7 @@
   "author": "Andrey Skoryk <asxcandrew@gmail.com>",
   "private": true,
   "scripts": {
-    "dev": "webpack-dev-server --inline --progress --hot --config build/webpack.dev.conf.js --env.BASE_URL=127.0.0.1:8080",
+    "dev": "webpack-dev-server --inline --progress --hot --disable-host-check --config build/webpack.dev.conf.js",
     "start": "npm run dev",
     "unit": "jest --config test/unit/jest.conf.js --coverage",
     "e2e": "node test/e2e/runner.js",

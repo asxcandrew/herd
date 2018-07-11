@@ -1,0 +1,17 @@
+FROM golang:1.10
+
+ARG app_env
+ENV APP_ENV $app_env
+
+COPY . /go/src/github.com/asxcandrew/herd/server
+WORKDIR /go/src/github.com/asxcandrew/herd/server
+
+RUN go get -u github.com/golang/dep/...
+
+RUN dep ensure
+
+# if dev setting will use pilu/fresh for code reloading via docker-compose volume sharing with local machine
+# if production setting will build binary
+CMD go run main.go
+
+EXPOSE 8080

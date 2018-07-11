@@ -5,7 +5,9 @@ build:
 	npm run build
 	docker build --rm -f client/Dockerfile -t herd/client:latest client
 run-dev:
-	docker run --rm -it -p 8000:8080 herd/backend:latest
+	docker-compose -f docker-compose.dev.yml -p herd-dev up
+setup-dev:
+	docker-compose -f docker-compose.dev.yml -p herd-dev up --build
 migrate:
 	go run migrations/migrations.go
 #^^^ add target db variable

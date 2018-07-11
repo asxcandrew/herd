@@ -5,7 +5,7 @@ services:
   nginx:
     image: nginx:1.15
     ports:
-      - 90:80
+      - 80:80
     volumes:
       - ./client/release:/usr/share/nginx/html
       - ./nginx.conf:/etc/nginx/nginx.conf
@@ -20,9 +20,3 @@ services:
       context: server
     networks:
       - nginx-go
-  # db:
-  #   image: postgres
-  #   env_file: .env
-  #   volumes:
-  #     - db-data:/var/lib/postgresql/db-data
-

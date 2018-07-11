@@ -6,8 +6,8 @@ import routes from './routes';
 Vue.use(Router);
 
 const router = new Router({
-  mode: process.env.BASE_URL ? 'history' : 'hash',
-  base: process.env.BASE_URL,
+  base: '/',
+  mode: 'history',
   routes,
 });
 

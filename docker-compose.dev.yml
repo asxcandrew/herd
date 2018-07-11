@@ -1,0 +1,35 @@
+version: "3"
+networks:
+  nginx-go:
+services:
+  nginx:
+    image: nginx:1.15
+    ports:
+      - 90:80
+    volumes:
+      - ./nginx.dev.conf:/etc/nginx/nginx.conf
+    depends_on:
+      - frontend    
+      - backend
+    networks:
+      - nginx-go
+  frontend:
+    build:
+      context: client
+      dockerfile: Dockerfile.dev
+    volumes:
+      - ./client:/frontend
+    networks:
+      - nginx-go
+  backend:
+    build:
+      context: server
+      dockerfile: Dockerfile.dev
+    networks:
+      - nginx-go
+  # db:
+  #   image: postgres
+  #   env_file: .env
+  #   volumes:
+  #     - db-data:/var/lib/postgresql/db-data
+

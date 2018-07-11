@@ -1,0 +1,14 @@
+FROM node:8-slim
+
+ENV NPM_CONFIG_LOGLEVEL warn
+ARG app_env
+
+RUN mkdir -p /frontend
+WORKDIR /frontend
+COPY ./ ./
+
+RUN yarn
+
+CMD	npm run start
+
+EXPOSE 8000

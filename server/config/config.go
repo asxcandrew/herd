@@ -2,6 +2,7 @@ package config
 
 import (
 	"fmt"
+	"os"
 
 	"github.com/BurntSushi/toml"
 )
@@ -26,6 +27,9 @@ func Root() *tomlConfig {
 		if _, err := toml.DecodeFile("config.toml", c); err != nil {
 			fmt.Println(err)
 			return &tomlConfig{}
+		}
+		if c.DB.Addr == "" {
+			c.DB.Addr = os.Getenv("DB_HOST") + ":" + os.Getenv("DB_PORT")
 		}
 	}
 	return c

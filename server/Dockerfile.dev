@@ -7,11 +7,12 @@ COPY . /go/src/github.com/asxcandrew/herd/server
 WORKDIR /go/src/github.com/asxcandrew/herd/server
 
 RUN go get -u github.com/golang/dep/...
-
 RUN dep ensure
 
-# if dev setting will use pilu/fresh for code reloading via docker-compose volume sharing with local machine
-# if production setting will build binary
-CMD go run main.go
+ADD https://github.com/ufoscout/docker-compose-wait/releases/download/2.3.0/wait /wait
+RUN chmod +x /wait
+
+## Launch the wait tool and then your application
+CMD /wait && go run migrations/*.go && go run main.go
 
 EXPOSE 8080

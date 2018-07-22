@@ -1,30 +1,72 @@
-# herd
+mastodon аккаунт
 
-> Federated publishing platform
+# HERD - Federated publishing platform
 
-## Build Setup
+> Federated publishing platform based on ActivityPub connected to the world of free social networking
 
-``` bash
-# install dependencies
-npm install
+Demo instance [herd.anonbecon.com](http://herd.anonbecon.com/)
 
-# serve with hot reload at localhost:8080
-npm run dev
+It's not ready for production yet, check for updates our mastodon account [`@herd@mastodon.technology`](https://mastodon.technology/@herd) or matrix room: [`#herd:matrix.org`](https://riot.im/app/#/room/#herd:matrix.org/)
 
-# build for production with minification
-npm run build
+---
 
-# build for production and view the bundle analyzer report
-npm run build --report
+## Tech stack
 
-# run unit tests
-npm run unit
+This project combines several modern technologies that I like:
 
-# run e2e tests
-npm run e2e
+- vue.js on frontend
+- Golang (go-gin) for backend
+- Protocol Buffers and gRPC
+- Docker
 
-# run all tests
-npm test
+> Anyone who's slightly familiar or want to try one of this technologies is welcomed to join.
+
+*([Submit a pull request](https://github.com/asxcandrew/herd/pulls)*
+
+## Development
+With [docker-compose](https://docs.docker.com/compose/) installed, run
+
+```
+$ make setup-dev
 ```
 
-For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+You can now execute the `make run-dev` command to start up the development.
+Project server will be running at *http://localhost:90*
+
+## Deployment
+
+You need to create running postgres with created database before deploy.
+
+```
+> psql -c "CREATE DATABASE herd_production_db"
+CREATE DATABASE
+```
+ - deployment section here
+
+## What's next
+
+Checklist to gauge how Herd`s development is going:
+
+- [x] Setup application with development environment
+- [ ] Full-featured text editor on client (in progress)
+- [ ] Integrate basic ActivityPub features
+- [ ] Use external service for image processing
+- [ ] HTTPS by default
+- [ ] IPFS for pictures storage as option
+- [ ] Integration, unit testing
+
+## Why?
+
+It’s any piece of software that implements ActivityPub. That software can be wildly different in how it looks and what it does! But the social graph–what we call the people and their connections–is the same.
+
+- Mastodon is the software built around 500-character text posts.
+- You want a video platform? That’s PeerTube.
+- You want something centered on photos and pictures? PixelFed is here.
+- You want to write long, rich blog posts? Plume is in development.
+
+## See Also
+
+[`Why ActivityPub is the future`](https://blog.joinmastodon.org/2018/06/why-activitypub-is-the-future/)!
+
+## License
+

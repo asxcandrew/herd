@@ -7,7 +7,7 @@ services:
     ports:
       - 90:80
     volumes:
-      - ./nginx.dev.conf:/etc/nginx/nginx.conf
+      - ./config/nginx.dev.conf:/etc/nginx/nginx.conf
     depends_on:
       - frontend
       - backend
@@ -41,5 +41,5 @@ services:
       - POSTGRES_PASSWORD=docker
       - PGDATA=/pgdata
     volumes:
-      - ./db/dbdata:/var/lib/postgresql/db-data
-      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./config/db/dbdata:/var/lib/postgresql/db-data
+      - ./config/db/init.sql:/docker-entrypoint-initdb.d/init.sql

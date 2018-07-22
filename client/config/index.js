@@ -7,7 +7,7 @@ const path = require('path')
 module.exports = {
   dev: {
     host: '0.0.0.0',
-    port: 8000,
+    port: 90,
 
     // Paths
     assetsSubDirectory: '/static/',

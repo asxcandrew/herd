@@ -3,16 +3,13 @@ networks:
   nginx-go:
 services:
   nginx:
-    image: nginx:1.15
+    build:
+      context: .
+      dockerfile: Dockerfile.prod.nginx.yml
     ports:
       - 80:80
-    volumes:
-      - ./client/release:/usr/share/nginx/html
-      - ./nginx.conf:/etc/nginx/nginx.conf
     depends_on:
       - backend
-    # links:
-    #   - backend
     networks:
       - nginx-go
   backend:

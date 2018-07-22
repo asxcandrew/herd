@@ -11,4 +11,4 @@ RUN yarn
 
 CMD	npm run start
 
-EXPOSE 8000
+EXPOSE 90

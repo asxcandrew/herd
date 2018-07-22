@@ -3,7 +3,6 @@ build:
 	docker build --rm -f server/Dockerfile -t herd/backend:latest server
 
 	npm run build
-	docker build --rm -f client/Dockerfile -t herd/client:latest client
 run-dev:
 	docker-compose -f docker-compose.dev.yml -p herd-dev up
 setup-dev:

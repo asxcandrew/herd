@@ -18,9 +18,13 @@ services:
       context: client
       dockerfile: Dockerfile.dev
     volumes:
-      - ./client:/frontend
+      - ./client:/usr/src/app
+      - /usr/src/app/node_modules
+      - /usr/src/app/.yarncache
     networks:
       - nginx-go
+    environment:
+      - NODE_ENV=development
   backend:
     build:
       context: server

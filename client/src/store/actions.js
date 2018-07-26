@@ -6,7 +6,7 @@ const signIn = ({ commit, dispatch }, form) => {
     username: form.email.trim(),
     password: form.password.trim(),
   }).then(res => {
-    commit('CHANGE_SESSION', { token: res.data.token, token_expiration: res.data.expire });
+    commit('CHANGE_SESSION', { token: res.data.token, token_expiration: Date.parse(res.data.expire) });
     return dispatch('getCurrentUser');
   });
 };

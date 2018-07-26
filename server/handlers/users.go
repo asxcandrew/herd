@@ -27,7 +27,7 @@ func CurrentUser(c *gin.Context) {
 		ID:       user.ID,
 		Username: user.Username,
 		Email:    user.Email,
-		Name:     "John Snow",
+		Name:     user.Name,
 	}
 	c.JSON(http.StatusOK, gin.H{"status": http.StatusOK, "data": res})
 }

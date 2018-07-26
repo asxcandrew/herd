@@ -18,6 +18,7 @@ type SignupResponse struct {
 	Email    string `json:"email" binding:"required"`
 	Password string `form:"password" json:"password" binding:"required"`
 	Username string `form:"username" json:"username" binding:"required"`
+	Name     string `form:"name" json:"name"`
 }
 
 //AuthMiddleware provides jwt middleware object
@@ -25,8 +26,8 @@ func AuthMiddleware() *jwt.GinJWTMiddleware {
 	if authMiddleware == nil {
 		authMiddleware = &jwt.GinJWTMiddleware{
 			Realm:         "herd",
-			Key:           []byte("secret key"),
-			Timeout:       time.Hour,
+			Key:           []byte("secret key"), //TODO: provide secret key in env var
+			Timeout:       time.Hour * 24,
 			MaxRefresh:    time.Hour,
 			Authenticator: Auth,
 			Authorizator: func(userId string, c *gin.Context) bool {
@@ -59,6 +60,7 @@ func Signup(c *gin.Context) {
 		user := &models.User{
 			Email:    json.Email,
 			Username: json.Username,
+			Name:     json.Name,
 		}
 		err := services.Register(user, json.Password)
 

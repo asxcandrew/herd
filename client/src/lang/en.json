@@ -12,6 +12,9 @@
       "message": "Create an account to personalize your homepage, follow authors and publications, join free federated publishing network.",
       "signInProposal": "Already have an account?",
       "submitButton": "Join"
+    },
+    "editor": {
+      "newStoryTitle": "New story"
     }
   },
   "components": {

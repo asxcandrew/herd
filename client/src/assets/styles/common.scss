@@ -1,3 +1,11 @@
 .dialog-custom{
   padding: 0 20vh;
 }
+.el-container{
+  min-height: 100%;
+}
+.ql-container, .ql-toolbar{
+  &.ql-snow{
+    border: none;
+  }
+}

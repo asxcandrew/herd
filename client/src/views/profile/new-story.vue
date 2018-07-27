@@ -1,6 +1,6 @@
 <template>
   <div>
-    <p>new story</p>
+    <h2>{{ $t('views.editor.newStoryTitle') }}</h2>
     <quill-editor ref="myTextEditor"
               v-model="content"
               :options="editorOption"
@@ -10,7 +10,6 @@
 </template>
 
 <script>
-// require styles
 import 'quill/dist/quill.core.css';
 import 'quill/dist/quill.snow.css'
 import 'quill/dist/quill.bubble.css'
@@ -24,13 +23,12 @@ export default {
   },
   methods: {
     onEditorChange(event) {
-      console.log('editor change!', event)
       // this.content = html
     }
   },
   data() {
     return {
-      content: `<h2 class="ql-align-center"><span class="ql-font-serif">Text content loading..</span></h2>`,
+      content: '',
       editorOption: {
         modules: {
           toolbar: [
@@ -38,15 +36,11 @@ export default {
             ['blockquote', 'code-block'],
             [{ 'header': 1 }, { 'header': 2 }],
             [{ 'list': 'ordered' }, { 'list': 'bullet' }],
-            [{ 'script': 'sub' }, { 'script': 'super' }],
             [{ 'indent': '-1' }, { 'indent': '+1' }],
-            [{ 'direction': 'rtl' }],
             [{ 'size': ['small', false, 'large', 'huge'] }],
             [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
             [{ 'font': [] }],
-            [{ 'color': [] }, { 'background': [] }],
             [{ 'align': [] }],
-            ['clean'],
             ['link', 'image', 'video']
           ],
           syntax: {

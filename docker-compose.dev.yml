@@ -34,6 +34,8 @@ services:
     environment:
       DB_HOST: db
       DB_PORT: "5432"
+    volumes:
+      - ./server:/go/src/github.com/asxcandrew/herd/server
   db:
     image: postgres:10
     networks:

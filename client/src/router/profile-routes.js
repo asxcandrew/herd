@@ -1,17 +1,26 @@
-import newStory from '../views/profile/new-story';
-import profileLayout from '../views/profile/layout';
-
 export default [
   {
     name: 'me',
-    path: 'me',
+    path: '/me',
     meta: { requiresAuth: true },
-    component: profileLayout,
+    component: require('@/views/profile/layout').default,
     children: [
       {
         name: 'new-story',
         path: 'new-story',
-        component: newStory,
+        component: require('@/views/profile/new-story').default,
+      },
+      {
+        name: 'stories',
+        path: 'stories',
+        redirect: { name: 'drafts' },
+        children: [
+          {
+            name: 'drafts',
+            path: 'drafts',
+            component: require('@/views/profile/stories').default,
+          }
+        ],
       },
     ],
   },

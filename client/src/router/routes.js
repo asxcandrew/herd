@@ -1,19 +1,18 @@
 
 import profileRoutes from './profile-routes';
-import Layout from '../views/layout';
+import notFound from '../views/404';
 
-export default [
+const baseRoutes = [
   {
     path: '/',
     meta: { requiresAuth: false },
-    component: Layout,
-    children: profileRoutes,
+    component: require('@/views/feed').default,
   },
-  // ## not found page
-  // {
-  //   name: 'not-found',
-  //   path: '*',
-  //   meta: { requiresAuth: false },
-  //   component: () => import(/* webpackChunkName: 'common' */ '../views/error')
-  // }
+  {
+    name: 'not-found',
+    path: '*',
+    component: notFound,
+  },
 ];
+
+export default baseRoutes.concat(profileRoutes);

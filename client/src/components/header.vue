@@ -15,6 +15,10 @@
               <el-dropdown-item @click.native="$router.push({ name: 'new-story'})">
                 {{ $t('components.header.dropdown.newStory') }}
               </el-dropdown-item>
+              <el-dropdown-item @click.native="$router.push({ name: 'stories'})">
+                {{ $t('components.header.dropdown.stories') }}
+              </el-dropdown-item>
+              <el-dropdown-item>Bookmarks</el-dropdown-item>
               <el-dropdown-item>Profile</el-dropdown-item>
               <el-dropdown-item>Settings</el-dropdown-item>
               <el-dropdown-item divided @click.native="logout">

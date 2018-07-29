@@ -8,9 +8,12 @@ import i18n from './lang';
 
 import './assets/styles/main.scss';
 
+import defaultLayout from './views/layout';
+
 sync(store, router, { moduleName: 'route' });
 
 Vue.use(Element);
+Vue.component('default-layout', defaultLayout);
 
 Vue.config.productionTip = false;
 

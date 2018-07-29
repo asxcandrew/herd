@@ -1,10 +1,12 @@
 <template>
     <el-container direction="vertical">
-      <app-header/>
+      <app-header />
       <el-main>
         <main class="content">
           <transition name="content">
-            <router-view class="inner"></router-view>
+            <div class="inner">
+              <slot></slot>
+            </div>
           </transition>
         </main>
       </el-main>

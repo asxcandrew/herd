@@ -1,7 +1,7 @@
 <template>
   <div>
     <h2>{{ $t('views.editor.newStoryTitle') }}</h2>
-    <editor :content="content" />
+    <editor content="content">
   </div>
 </template>
 
@@ -13,10 +13,10 @@ export default {
   components: {
     editor,
   },
-  data() {
-    return {
-      content: 'Write your story...',
-    };
+  computed: {
+    content(){
+      return 'edit your story';
+    }
   }
 };
 </script>

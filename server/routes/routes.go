@@ -18,5 +18,6 @@ func ApiRoutes(r *gin.Engine) {
 	authorized.Use(H.AuthMiddleware().MiddlewareFunc())
 	{
 		UsersRoutes(authorized)
+		StoriesRoutes(authorized)
 	}
 }

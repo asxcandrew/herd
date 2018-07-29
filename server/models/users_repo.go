@@ -1,9 +1,5 @@
 package models
 
-import (
-	validator "gopkg.in/go-playground/validator.v8"
-)
-
 type FullUserStruct struct {
 	ID       uint64 `json:"id"`
 	Username string `json:"username"`
@@ -13,8 +9,7 @@ type FullUserStruct struct {
 
 //CreateUser creates user with validation
 func (u *User) Create() error {
-	validate := validator.New(&validator.Config{TagName: "validate"})
-	err := validate.Struct(u)
+	err := Validate(u)
 
 	if err != nil {
 		return err

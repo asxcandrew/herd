@@ -23,6 +23,7 @@
       "signUpButton": "Get started",
       "dropdown": {
         "newStory": "New story",
+        "stories": "Stories",
         "signOut": "Sign out"
       }
     }

@@ -1,3 +1,12 @@
+@import url('https://fonts.googleapis.com/css?family=Varela');
+body {
+  font-family: 'Varela', Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: map-get($colors, font-primary);
+}
+
 .dialog-custom{
   padding: 0 20vh;
 }
@@ -12,12 +21,7 @@
 .el-footer{
   font-size: 10pt;
 }
-
-@import url('https://fonts.googleapis.com/css?family=Varela+Round');
-body {
-  font-family: 'Varela Round', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+.unstyled-link {
+  text-decoration: none;
+  color: map-get($colors, font-primary);
 }

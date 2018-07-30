@@ -8,6 +8,7 @@
     </el-dialog>
     <el-row type="flex" class="row-bg header-wrapper" justify="center">
       <el-col :span="14">
+        <router-link to="/" class="logo unstyled-link">Herd</router-link>
         <div class="menu-right" v-if="session.user">
           <el-dropdown trigger="hover">
             <span class="el-dropdown-link userinfo-inner">{{ session.user.name }}</span>
@@ -72,8 +73,12 @@ export default {
 </script>
 <style lang="scss">
 .header-wrapper {
-  color: #333;
   line-height: 60px;
+  .logo {
+    float: left;
+    font-size: 20pt;
+    font-weight: bold;
+  }
   .menu-right {
     text-align: right;
     padding-right: 35px;

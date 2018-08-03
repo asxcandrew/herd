@@ -1,4 +1,10 @@
 {
+  "meta" : {
+    "title": {
+      "default": "Herd",
+      "defaultTemplate": "Federated publishing platform"
+    }
+  },
   "views" : {
     "login": {
       "title": "Welcome back.",

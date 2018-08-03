@@ -14,7 +14,22 @@ export default {
   computed: {
     layout(){
       return (this.$route.meta.layout || defaultLayout) + '-layout';
-    }
+    },
+    title(){
+      return this.$t('meta.title.default');
+    },
+    titleTemplate(){
+      return this.$t('meta.title.defaultTemplate');
+    },
+  },
+  head: {
+    title: function () {
+      return {
+        inner: this.title,
+        separator: '|',
+        complement: this.titleTemplate,
+      }
+    },
   },
 };
 </script>

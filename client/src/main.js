@@ -5,6 +5,9 @@ import App from './App';
 import store from './store';
 import router from './router';
 import i18n from './lang';
+import VueHead from 'vue-head';
+
+Vue.use(VueHead);
 
 import './assets/styles/main.scss';
 

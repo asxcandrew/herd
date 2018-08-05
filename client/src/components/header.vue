@@ -8,34 +8,44 @@
     </el-dialog>
     <el-row type="flex" class="row-bg header-wrapper" justify="center">
       <el-col :span="14">
-        <router-link to="/" class="logo unstyled-link">Herd</router-link>
-        <div class="menu-right" v-if="session.user">
-          <el-dropdown trigger="hover">
-            <span class="el-dropdown-link userinfo-inner">{{ session.user.name }}</span>
-            <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item @click.native="$router.push({ name: 'new-story'})">
-                {{ $t('components.header.dropdown.newStory') }}
-              </el-dropdown-item>
-              <el-dropdown-item @click.native="$router.push({ name: 'stories'})">
-                {{ $t('components.header.dropdown.stories') }}
-              </el-dropdown-item>
-              <el-dropdown-item>Bookmarks</el-dropdown-item>
-              <el-dropdown-item>Profile</el-dropdown-item>
-              <el-dropdown-item>Settings</el-dropdown-item>
-              <el-dropdown-item divided @click.native="logout">
-                {{ $t('components.header.dropdown.signOut') }}
-              </el-dropdown-item>
-            </el-dropdown-menu>
-          </el-dropdown>
-        </div>
-        <div class="menu-right" v-else>
-          <el-button type="text" @click="showModal('signin')">
-            {{ $t('components.header.signInButton') }}
-          </el-button>
-          <el-button type="primary" @click="showModal('signup')" plain>
-            {{ $t('components.header.signUpButton') }}
-          </el-button>
-        </div>
+        <el-col :span="3">
+          <router-link to="/" class="logo unstyled-link">Herd</router-link>
+        </el-col>
+        <el-col :span="21">
+          <el-row type="flex" justify="end">
+            <el-col class="status-bar" :span="3">
+              <i class="el-icon-loading" v-if="statusBar.isLoading"></i>
+              <span>{{ statusBar.notice }}</span>
+            </el-col>
+            <el-col class="menu-right" v-if="session.user" :span="4">
+              <el-dropdown trigger="hover">
+                <span class="el-dropdown-link userinfo-inner">{{ session.user.name }}</span>
+                <el-dropdown-menu slot="dropdown">
+                  <el-dropdown-item @click.native="$router.push({ name: 'new-story'})">
+                    {{ $t('components.header.dropdown.newStory') }}
+                  </el-dropdown-item>
+                  <el-dropdown-item @click.native="$router.push({ name: 'stories'})">
+                    {{ $t('components.header.dropdown.stories') }}
+                  </el-dropdown-item>
+                  <el-dropdown-item>Bookmarks</el-dropdown-item>
+                  <el-dropdown-item>Profile</el-dropdown-item>
+                  <el-dropdown-item>Settings</el-dropdown-item>
+                  <el-dropdown-item divided @click.native="logout">
+                    {{ $t('components.header.dropdown.signOut') }}
+                  </el-dropdown-item>
+                </el-dropdown-menu>
+              </el-dropdown>
+            </el-col>
+            <el-col class="menu-right" v-else :span="8">
+              <el-button type="text" @click="showModal('signin')">
+                {{ $t('components.header.signInButton') }}
+              </el-button>
+              <el-button type="primary" @click="showModal('signup')" plain>
+                {{ $t('components.header.signUpButton') }}
+              </el-button>
+            </el-col>
+          </el-row>
+        </el-col>
       </el-col>
     </el-row>
   </el-header>
@@ -43,12 +53,12 @@
 
 <script>
 import { mapGetters } from 'vuex';
-import Login from '../views/login';
-import Signup from '../views/signup';
+import Login from '@/views/login';
+import Signup from '@/views/signup';
 
 export default {
   name: 'app-header',
-  computed: mapGetters({ session: 'session', modals: 'modals' }),
+  computed: mapGetters({ session: 'session', modals: 'modals', statusBar: 'statusBar' }),
 
   components: {
     Login,
@@ -75,17 +85,17 @@ export default {
 .header-wrapper {
   line-height: 60px;
   .logo {
-    float: left;
     font-size: 20pt;
     font-weight: bold;
   }
+  .status-bar {
+    font-size: 9pt;
+    color: #606266;
+  }
   .menu-right {
     text-align: right;
-    padding-right: 35px;
-    float: right;
     .userinfo-inner {
       cursor: pointer;
-      // color:#fff;
       img {
         width: 40px;
         height: 40px;

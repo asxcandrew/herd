@@ -4,6 +4,7 @@ import defaults from './defaults';
 const state = {
   session: storage.get('session_info') || {},
   modals: defaults().modals,
+  statusBar: defaults().statusBar,
 };
 
 // if (state.session && state.session.token) {

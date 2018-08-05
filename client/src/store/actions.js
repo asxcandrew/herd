@@ -1,54 +1,49 @@
-import { PublicService } from '../services';
+import { PublicService } from '@/services';
 import defaults from './defaults';
+import {
+  UPDATE_STATUS_BAR,
+  CLEAR_STATUS_BAR,
+  SIGN_IN,
+  SIGN_UP,
+  SIGN_OUT,
+  SHOW_MODAL,
+  CLOSE_MODAL,
+} from './actions.type';
 
-const signIn = ({ commit, dispatch }, form) => {
-  return PublicService.signin({
-    username: form.email.trim(),
-    password: form.password.trim(),
-  }).then(res => {
-    commit('CHANGE_SESSION', { token: res.data.token, token_expiration: Date.parse(res.data.expire) });
-    return dispatch('getCurrentUser');
-  });
+export default {
+  [SIGN_IN] ({ commit, dispatch }, form) {
+    return PublicService.signin({
+      username: form.email.trim(),
+      password: form.password.trim(),
+    }).then(res => {
+      commit('CHANGE_SESSION', { token: res.data.token, token_expiration: Date.parse(res.data.expire) });
+      return dispatch('getCurrentUser');
+    });
+  },
+  [SIGN_UP] ({ commit }, form ) {
+    return PublicService.signup(form).then((res) => {
+      commit('CHANGE_SESSION', { token: res.data.token, token_expiration: res.data.expire });
+    }).catch(() => {
+      resolve(false);
+    });
+  },
+  [SIGN_OUT] ({ commit }) {
+    return new Promise((resolve, reject) => {
+      commit('DESTROY_SESSION');
+    }).catch(() => {
+      resolve(false);
+    });
+  },
+  [UPDATE_STATUS_BAR] ({ commit }, params) {
+    commit('CHANGE_STATUS_BAR', params);
+  },
+  [CLEAR_STATUS_BAR] ({ commit }) {
+    commit('CHANGE_STATUS_BAR', defaults().statusBar);
+  },
+  [SHOW_MODAL] ({ commit }, name) {
+    commit('CHANGE_MODALS', Object.assign(defaults().modals, { [name]: true }));
+  },
+  [CLOSE_MODAL] ({ commit }, name) {
+    commit('CHANGE_MODALS', { [name]: false });
+  },
 };
-
-const signUp = ({ commit }, form ) => {
-  return PublicService.signup(form).then((res) => {
-    commit('CHANGE_SESSION', { token: res.data.token, token_expiration: res.data.expire });
-  }).catch(() => {
-    resolve(false);
-  });
-};
-
-const signOut = ({ commit }) => {
-  return new Promise((resolve, reject) => {
-    commit('DESTROY_SESSION');
-  }).catch(() => {
-    resolve(false);
-  });
-};
-
-const checkToken = ({ commit, getters }) => {
-  return new Promise((resolve, reject) => {
-    // validate local store
-    if (!getters.session.token) {
-      return resolve(false);
-    }
-    // remote
-    TokenService.get()
-      .then(res => resolve(true))
-      .catch(err => {
-        commit('CHANGE_SESSION', { token: null });
-        resolve(false);
-      });
-  });
-};
-
-const showModal = ({ commit }, name) => {
-  commit('CHANGE_MODALS', Object.assign(defaults().modals, { [name]: true }));
-};
-
-const closeModal = ({ commit }, name) => {
-  commit('CHANGE_MODALS', { [name]: false });
-};
-
-export { signOut, showModal, closeModal, signUp, signIn };

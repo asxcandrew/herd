@@ -2,7 +2,6 @@ package handlers
 
 import (
 	"net/http"
-	"strconv"
 
 	"github.com/asxcandrew/herd/server/models"
 	"github.com/gin-gonic/gin"
@@ -10,18 +9,7 @@ import (
 
 //CurrentUser handler for users/me
 func CurrentUser(c *gin.Context) {
-	userID, err := strconv.ParseUint(c.Keys["userID"].(string), 10, 32)
-
-	if err != nil {
-		c.JSON(http.StatusNotFound, gin.H{"status": http.StatusNotFound, "data": ""})
-		return
-	}
-	user := &models.User{ID: userID}
-	err = models.DB().Select(user)
-	if err != nil {
-		c.JSON(http.StatusNotFound, gin.H{"status": http.StatusNotFound, "data": ""})
-		return
-	}
+	user := c.Keys["CurrentUser"].(*models.User)
 
 	res := models.FullUserStruct{
 		ID:       user.ID,

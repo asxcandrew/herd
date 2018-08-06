@@ -2,6 +2,7 @@ package routes
 
 import (
 	H "github.com/asxcandrew/herd/server/handlers"
+	"github.com/asxcandrew/herd/server/middlewares"
 	"github.com/gin-gonic/gin"
 )
 
@@ -16,6 +17,7 @@ func ApiRoutes(r *gin.Engine) {
 	authorized := v1.Group("/a")
 
 	authorized.Use(H.AuthMiddleware().MiddlewareFunc())
+	authorized.Use(middlewares.CurrentUser())
 	{
 		UsersRoutes(authorized)
 		StoriesRoutes(authorized)

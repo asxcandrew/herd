@@ -1,9 +1,9 @@
 <template>
   <el-header>
-    <el-dialog :visible="modals.signin" @close="closeModal('signin')" customClass="dialog-custom">
+    <el-dialog v-if="modals.signin" :visible="modals.signin" @close="closeModal('signin')" customClass="dialog-custom">
       <login/>
     </el-dialog>
-    <el-dialog :visible="modals.signup" @close="closeModal('signup')" customClass="dialog-custom">
+    <el-dialog v-if="modals.signup" :visible="modals.signup" @close="closeModal('signup')" customClass="dialog-custom">
       <signup/>
     </el-dialog>
     <el-row type="flex" class="row-bg header-wrapper" justify="center">
@@ -55,6 +55,7 @@
 import { mapGetters } from 'vuex';
 import Login from '@/views/login';
 import Signup from '@/views/signup';
+import { SIGN_OUT } from '@/store/actions.type';
 
 export default {
   name: 'app-header',
@@ -74,7 +75,7 @@ export default {
       this.$store.dispatch('closeModal', modal);
     },
     logout() {
-      this.$store.dispatch('signOut').then(() => {
+      this.$store.dispatch(SIGN_OUT).then(() => {
         this.$router.replace({ path: '/' });
       });
     },

@@ -28,11 +28,9 @@ export default {
     });
   },
   [SIGN_OUT] ({ commit }) {
-    return new Promise((resolve, reject) => {
+    return (async () => {
       commit('DESTROY_SESSION');
-    }).catch(() => {
-      resolve(false);
-    });
+    })();
   },
   [UPDATE_STATUS_BAR] ({ commit }, params) {
     commit('CHANGE_STATUS_BAR', params);

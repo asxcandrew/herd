@@ -1,4 +1,8 @@
 class BaseResource {
+  query(params) {
+    let url = `/${this.base}`;
+    return this.api.get(url, params);
+  }
   get(id, options) {
     let url = `/${this.base}`;
     if (id !== undefined) {

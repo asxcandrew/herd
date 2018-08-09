@@ -21,6 +21,13 @@
     },
     "editor": {
       "newStoryTitle": "New story"
+    },
+    "profile": {
+      "stories": {
+        "title": "Your stories",
+        "draftsTabTitle": "Drafts {num}",
+        "publishedTabTitle": "Published {num}"
+      }
     }
   },
   "components": {

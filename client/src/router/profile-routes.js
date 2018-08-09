@@ -14,6 +14,7 @@ export default [
         name: 'stories',
         path: 'stories',
         redirect: { name: 'drafts' },
+        component: { template: '<router-view></router-view>' },
         children: [
           {
             name: 'drafts',

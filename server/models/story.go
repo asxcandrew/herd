@@ -4,27 +4,18 @@ import "time"
 
 // Story db structure
 type Story struct {
-	ID          uint64
-	UID         string
-	Link        string
-	Title       string
-	Subtitle    string
-	AuthorID    uint64 `validate:"required"`
-	Revisions   []*StoryRevision
-	Author      *User
-	Tags        []Tag `pg:"many2many:story_tags"`
-	Active      bool
-	PublishedAt time.Time
-	CreatedAt   time.Time
-}
-
-// StoryRevision structure to keep story revisions
-type StoryRevision struct {
-	ID        uint64
-	Markdown  string
-	StoryID   uint64 `validate:"required"`
-	Story     *Story
-	CreatedAt time.Time
+	ID          uint64    `json:"id"`
+	UID         string    `json:"uid" validate:"required"`
+	Link        string    `json:"link"`
+	HTMLBody    string    `json:"-" validate:"required"`
+	Title       string    `json:"title" validate:"required"`
+	Subtitle    string    `json:"subtitle"`
+	AuthorID    uint64    `json:"-" validate:"required"`
+	Author      *User     `json:"user"`
+	Tags        []Tag     `json:"tags" pg:"many2many:story_tags"`
+	Active      bool      `json:"active"`
+	PublishedAt time.Time `json:"published_at"`
+	CreatedAt   time.Time `json:"created_at"`
 }
 
 // StoryTags structure to keep related tags

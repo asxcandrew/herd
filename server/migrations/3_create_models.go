@@ -30,6 +30,8 @@ func init() {
 												id serial PRIMARY KEY,
 												uid char(12) UNIQUE,
 												title varchar,
+												html_body varchar,
+												link varchar,
 												subtitle varchar,
 												description varchar,
 												author_id int REFERENCES users(id),
@@ -42,11 +44,6 @@ func init() {
 												story_id int REFERENCES stories(id),
 												tag_id int REFERENCES tags(id)
 											);
-											CREATE TABLE story_revision (
-												id serial PRIMARY KEY,
-												story_id int REFERENCES stories(id),
-												markdown varchar
-											);
 		`)
 		return err
 	}, func(db migrations.DB) error {
@@ -56,7 +53,6 @@ func init() {
 				DROP TABLE topics;
 				DROP TABLE stories;
 				DROP TABLE story_tags;
-				DROP TABLE story_revision;
 				DROP TABLE related_topics;
 			`)
 		return err

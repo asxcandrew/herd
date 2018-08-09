@@ -1,7 +1,14 @@
 <template>
   <div>
-    <quill-editor ref="myTextEditor"
-              v-model="content"
+    <h3>
+      <input 
+        class="frameless editor-title"
+        v-model="editorTitle"
+        @change="onEditorChange"
+        :placeholder="this.$t('views.editor.newStoryTitle')">
+    </h3>
+    <quill-editor
+              v-model="editorContent"
               :options="editorOption"
               @change="onEditorChange($event)">
     </quill-editor>
@@ -14,6 +21,7 @@ import 'quill/dist/quill.snow.css'
 import 'quill/dist/quill.bubble.css'
 
 import { quillEditor } from 'vue-quill-editor';
+import { UPDATE_STATUS_BAR } from '@/store/actions.type';
 
 export default {
   name: 'editor',
@@ -22,22 +30,26 @@ export default {
   },
   methods: {
     onEditorChange(event) {
-      // this.content = html
+      this.contentHTML = event.html
+      // this.$store.dispatch(UPDATE_STATUS_BAR, { isLoading: true, notice: 'saving' });
+    },
+    updatePost() {
+      console.log('updete post')
     }
   },
-  props: ['content'],
+  props: ['content', 'title'],
   data() {
     return {
+      editorContent: this.content,
+      editorTitle: this.title,
+      contentHTML: '',
       editorOption: {
         modules: {
           toolbar: [
             ['bold', 'italic', 'underline', 'strike'],
             ['blockquote', 'code-block'],
             [{ 'header': 1 }, { 'header': 2 }],
-            [{ 'list': 'ordered' }, { 'list': 'bullet' }],
-            [{ 'indent': '-1' }, { 'indent': '+1' }],
-            [{ 'size': ['small', false, 'large', 'huge'] }],
-            [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+            [{ 'list': 'bullet' }],
             [{ 'font': [] }],
             [{ 'align': [] }],
             ['link', 'image', 'video']
@@ -51,3 +63,13 @@ export default {
   }
 };
 </script>
+<style>
+.editor-title {
+  width: 100%;
+  text-align: center;
+}
+.frameless {
+  border: 0;
+  outline:0px solid transparent;
+}
+</style>

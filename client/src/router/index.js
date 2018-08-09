@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import { auth } from '../utils';
+import { auth } from '@/utils';
 import routes from './routes';
 
 Vue.use(Router);

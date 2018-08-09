@@ -11,13 +11,7 @@ import (
 func CurrentUser(c *gin.Context) {
 	user := c.Keys["CurrentUser"].(*models.User)
 
-	res := models.FullUserStruct{
-		ID:       user.ID,
-		Username: user.Username,
-		Email:    user.Email,
-		Name:     user.Name,
-	}
-	c.JSON(http.StatusOK, gin.H{"status": http.StatusOK, "data": res})
+	c.JSON(http.StatusOK, gin.H{"status": http.StatusOK, "data": user})
 }
 
 //UsernameAvalability handler for availability/:username

@@ -1,3 +1,4 @@
 import users from './users';
+import stories from './stories';
 
-export default { users };
+export default { users, stories };

@@ -2,13 +2,15 @@
     <el-container direction="vertical">
       <app-header />
       <el-main>
-        <main class="content">
-          <transition name="content">
-            <div class="inner">
-              <slot></slot>
-            </div>
-          </transition>
-        </main>
+        <el-row type="flex" class="row-bg" justify="center">
+          <el-col :span="16">
+            <transition name="content">
+              <div class="inner">
+                <slot></slot>
+              </div>
+            </transition>
+          </el-col>
+        </el-row>
       </el-main>
       <el-footer>
         <el-row type="flex" class="row-bg" justify="center">

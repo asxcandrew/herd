@@ -8,5 +8,9 @@ import (
 //StoriesRoutes users path group
 func StoriesRoutes(route *gin.RouterGroup) {
 	story := route.Group("/stories")
-	story.POST(":id", H.CreateStory)
+	story.POST("/", H.CreateStory)
+	story.GET("/", H.QueryStories)
+	story.GET("/:id", H.GetStory)
+	story.GET("/:id/body", H.GetStoryBody)
+	story.DELETE("/:id", H.DeleteStory)
 }

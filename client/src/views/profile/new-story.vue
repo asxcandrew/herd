@@ -1,6 +1,5 @@
 <template>
   <div>
-    <h2>{{ $t('views.editor.newStoryTitle') }}</h2>
     <editor :content="content" />
   </div>
 </template>
@@ -22,5 +21,4 @@ export default {
 </script>
 
 <style>
-
 </style>

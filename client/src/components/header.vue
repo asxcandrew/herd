@@ -17,7 +17,7 @@
               <i class="el-icon-loading" v-if="statusBar.isLoading"></i>
               <span>{{ statusBar.notice }}</span>
             </el-col>
-            <el-col class="menu-right" v-if="session.user" :span="4">
+            <el-col class="menu-right" v-if="loggedIn" :span="4">
               <el-dropdown trigger="hover">
                 <span class="el-dropdown-link userinfo-inner">{{ session.user.name }}</span>
                 <el-dropdown-menu slot="dropdown">
@@ -59,7 +59,12 @@ import { SIGN_OUT } from '@/store/actions.type';
 
 export default {
   name: 'app-header',
-  computed: mapGetters({ session: 'session', modals: 'modals', statusBar: 'statusBar' }),
+  computed: mapGetters({
+    session: 'session',
+    modals: 'modals',
+    loggedIn: 'loggedIn',
+    statusBar: 'statusBar',
+  }),
 
   components: {
     Login,

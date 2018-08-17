@@ -1,8 +1,6 @@
-import { storage } from '../utils';
 import defaults from './defaults';
 
 const state = {
-  session: storage.get('session_info') || {},
   modals: defaults().modals,
   statusBar: defaults().statusBar,
 };

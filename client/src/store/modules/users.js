@@ -1,4 +1,7 @@
-import { UserService } from '../../services';
+import { UserService } from '@/services';
+import {
+  CHANGE_SESSION,
+} from '../mutations.type'
 
 const state = {
 
@@ -28,7 +31,7 @@ const actions = {
   getCurrentUser({ commit }) {
     return UserService.get('me')
       .then((res) => {
-        commit('CHANGE_SESSION', { user: res.data.data });
+        commit(CHANGE_SESSION, { user: res.data.data });
       });
   },
 };

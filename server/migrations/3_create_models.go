@@ -37,6 +37,7 @@ func init() {
 												author_id int REFERENCES users(id),
 												active boolean,
 												published_at timestamptz,
+												updated_at timestamptz DEFAULT current_timestamp,
 												created_at timestamptz DEFAULT current_timestamp
 											);
 											CREATE TABLE story_tags (

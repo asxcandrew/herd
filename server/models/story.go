@@ -4,6 +4,8 @@ import "time"
 
 // Story db structure
 type Story struct {
+	timestampable
+
 	ID          uint64    `json:"id"`
 	UID         string    `json:"uid" validate:"required"`
 	Link        string    `json:"link"`
@@ -15,7 +17,6 @@ type Story struct {
 	Tags        []Tag     `json:"tags" pg:"many2many:story_tags"`
 	Active      bool      `json:"active"`
 	PublishedAt time.Time `json:"published_at"`
-	CreatedAt   time.Time `json:"created_at"`
 }
 
 // StoryTags structure to keep related tags

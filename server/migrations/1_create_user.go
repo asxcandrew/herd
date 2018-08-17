@@ -14,6 +14,7 @@ func init() {
 												username varchar UNIQUE,
 												email varchar UNIQUE,
 												encrypted_password varchar,
+												updated_at timestamptz DEFAULT current_timestamp,
 												created_at timestamptz DEFAULT current_timestamp
 											)
 		`)

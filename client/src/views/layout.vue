@@ -12,8 +12,8 @@
           </el-col>
         </el-row>
       </el-main>
-      <el-footer>
-        <el-row type="flex" class="row-bg" justify="center">
+      <el-footer class="center">
+        <el-row type="flex" class="row-bg substring" justify="center">
           <el-col :span="10">asxcandrew@gmail.com Herd - federated publishing platform</el-col>
         </el-row>
         <el-row type="flex" class="row-bg" justify="center">

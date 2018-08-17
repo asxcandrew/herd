@@ -3,10 +3,14 @@ class BaseResource {
     let url = `/${this.base}`;
     return this.api.get(url, params);
   }
-  get(id, options) {
+  get(id, options, append) {
+    
     let url = `/${this.base}`;
     if (id !== undefined) {
       url += `/${id}`;
+    }
+    if (append !== undefined) {
+      url += `/${append}`;
     }
     return this.api.get(url, options);
   }

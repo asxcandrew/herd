@@ -26,7 +26,10 @@
       "stories": {
         "title": "Your stories",
         "draftsTabTitle": "Drafts {num}",
-        "publishedTabTitle": "Published {num}"
+        "publishedTabTitle": "Published {num}",
+        "lastEdited": "Last edited {date}",
+        "deleteButton": "delete",
+        "editButton": "edit"
       }
     }
   },

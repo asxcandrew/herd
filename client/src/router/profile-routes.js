@@ -11,6 +11,12 @@ export default [
         component: require('@/views/profile/new-story').default,
       },
       {
+        name: 'edit-story',
+        path: 'edit-story/:id',
+        props: true,
+        component: require('@/views/profile/edit-story').default,
+      },
+      {
         name: 'stories',
         path: 'stories',
         redirect: { name: 'drafts' },

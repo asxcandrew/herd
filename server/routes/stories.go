@@ -11,6 +11,7 @@ func StoriesRoutes(route *gin.RouterGroup) {
 	story.POST("/", H.CreateStory)
 	story.GET("/", H.QueryStories)
 	story.GET("/:id", H.GetStory)
+	story.PUT("/:id", H.UpdateStory)
 	story.GET("/:id/body", H.GetStoryBody)
 	story.DELETE("/:id", H.DeleteStory)
 }

@@ -3,7 +3,6 @@ body {
   font-family: 'Varela', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
   color: map-get($colors, font-primary);
 }
 
@@ -24,4 +23,14 @@ body {
 .unstyled-link {
   text-decoration: none;
   color: map-get($colors, font-primary);
+}
+.center {
+  text-align: center;
+}
+.substring {
+  font-size: 10pt;
+  color: map-get($colors, font-lighter);
+}
+.underlined {
+  border-bottom:2px #e4e7ed solid;
 }

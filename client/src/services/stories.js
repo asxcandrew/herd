@@ -1,3 +1,9 @@
 import AuthorizedResource from './authorized';
 
-export default new AuthorizedResource('stories');
+class StoryService extends AuthorizedResource {
+  getBody(id){
+    return this.get(id, undefined, 'body');
+  };
+}
+
+export default new StoryService('stories');

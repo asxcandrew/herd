@@ -8,44 +8,47 @@
     </el-dialog>
     <el-row type="flex" class="row-bg header-wrapper" justify="center">
       <el-col :span="14">
-        <el-col :span="3">
-          <router-link to="/" class="logo unstyled-link">Herd</router-link>
-        </el-col>
-        <el-col :span="21">
-          <el-row type="flex" justify="end">
-            <el-col class="status-bar" :span="3">
-              <i class="el-icon-loading" v-if="statusBar.isLoading"></i>
-              <span>{{ statusBar.notice }}</span>
-            </el-col>
-            <el-col class="menu-right" v-if="loggedIn" :span="4">
-              <el-dropdown trigger="hover">
-                <span class="el-dropdown-link userinfo-inner">{{ session.user.name }}</span>
-                <el-dropdown-menu slot="dropdown">
-                  <el-dropdown-item @click.native="$router.push({ name: 'new-story'})">
-                    {{ $t('components.header.dropdown.newStory') }}
-                  </el-dropdown-item>
-                  <el-dropdown-item @click.native="$router.push({ name: 'stories'})">
-                    {{ $t('components.header.dropdown.stories') }}
-                  </el-dropdown-item>
-                  <el-dropdown-item>Bookmarks</el-dropdown-item>
-                  <el-dropdown-item>Profile</el-dropdown-item>
-                  <el-dropdown-item>Settings</el-dropdown-item>
-                  <el-dropdown-item divided @click.native="logout">
-                    {{ $t('components.header.dropdown.signOut') }}
-                  </el-dropdown-item>
-                </el-dropdown-menu>
-              </el-dropdown>
-            </el-col>
-            <el-col class="menu-right" v-else :span="8">
-              <el-button type="text" @click="showModal('signin')">
-                {{ $t('components.header.signInButton') }}
-              </el-button>
-              <el-button type="primary" @click="showModal('signup')" plain>
-                {{ $t('components.header.signUpButton') }}
-              </el-button>
-            </el-col>
-          </el-row>
-        </el-col>
+        <ul class="menu-left menu-block">
+          <li>
+            <router-link to="/" class="logo unstyled-link">Herd</router-link>
+          </li>
+          <li class="status-bar">
+            <i class="el-icon-loading" v-if="statusBar.isLoading"></i>
+            <span>{{ statusBar.notice }}</span>
+          </li>
+        </ul>
+        <ul class="menu-right menu-block">
+          <li>
+            <div :is="plugin"></div>
+          </li>
+          <li v-if="loggedIn">
+            <el-dropdown trigger="hover">
+              <span class="el-dropdown-link userinfo-inner">{{ session.user.name }}</span>
+              <el-dropdown-menu slot="dropdown">
+                <el-dropdown-item @click.native="$router.push({ name: 'new-story'})">
+                  {{ $t('components.header.dropdown.newStory') }}
+                </el-dropdown-item>
+                <el-dropdown-item @click.native="$router.push({ name: 'stories'})">
+                  {{ $t('components.header.dropdown.stories') }}
+                </el-dropdown-item>
+                <el-dropdown-item>Bookmarks</el-dropdown-item>
+                <el-dropdown-item>Profile</el-dropdown-item>
+                <el-dropdown-item>Settings</el-dropdown-item>
+                <el-dropdown-item divided @click.native="logout">
+                  {{ $t('components.header.dropdown.signOut') }}
+                </el-dropdown-item>
+              </el-dropdown-menu>
+            </el-dropdown>
+          </li>
+          <li v-else>
+            <el-button type="text" @click="showModal('signin')">
+              {{ $t('components.header.signInButton') }}
+            </el-button>
+            <el-button type="primary" @click="showModal('signup')" plain>
+              {{ $t('components.header.signUpButton') }}
+            </el-button>
+          </li>
+        </ul>
       </el-col>
     </el-row>
   </el-header>
@@ -57,20 +60,28 @@ import Login from '@/views/login';
 import Signup from '@/views/signup';
 import { SIGN_OUT } from '@/store/actions.type';
 
+const plugins = {
+  default: 'search-navbar-plugin',
+  story: 'story-navbar-plugin',
+};
+
 export default {
   name: 'app-header',
-  computed: mapGetters({
-    session: 'session',
-    modals: 'modals',
-    loggedIn: 'loggedIn',
-    statusBar: 'statusBar',
-  }),
-
+  computed: {
+    ...mapGetters({
+      session: 'session',
+      modals: 'modals',
+      loggedIn: 'loggedIn',
+      statusBar: 'statusBar',
+    }),
+    plugin(){
+      return (plugins[this.$route.meta.navabrPlugin] || plugins.default);
+    }
+  },
   components: {
     Login,
     Signup,
   },
-
   methods: {
     // TODO: Move this logic to shared customized modal
     showModal(modal) {
@@ -98,17 +109,34 @@ export default {
     font-size: 9pt;
     color: #606266;
   }
+  .menu-left {
+    float: left;
+  }
+  ul.menu-block {
+    padding: 0;
+    margin: 0;
+    display: flex;
+    li {
+      list-style: none;
+      display: inline;
+      margin-right: 1em;
+      &:last-child {
+        margin-right:0;
+      }
+    }
+  }
   .menu-right {
     text-align: right;
-    .userinfo-inner {
-      cursor: pointer;
-      img {
-        width: 40px;
-        height: 40px;
-        border-radius: 20px;
-        margin: 10px 0px 10px 10px;
-        float: right;
-      }
+    float: right;
+  }
+  .userinfo-inner {
+    cursor: pointer;
+    img {
+      width: 40px;
+      height: 40px;
+      border-radius: 20px;
+      margin: 10px 0px 10px 10px;
+      float: right;
     }
   }
 }

@@ -8,11 +8,13 @@ export default [
       {
         name: 'new-story',
         path: 'new-story',
+        meta: { navabrPlugin: 'story' },
         component: require('@/views/profile/new-story').default,
       },
       {
         name: 'edit-story',
         path: 'edit-story/:id',
+        meta: { navabrPlugin: 'story' },
         props: true,
         component: require('@/views/profile/edit-story').default,
       },

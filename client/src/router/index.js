@@ -3,6 +3,10 @@ import Router from 'vue-router';
 import routes from './routes';
 import store from '@/store';
 
+import {
+  CLEAR_STATUS_BAR,
+} from '@/store/actions.type';
+
 Vue.use(Router);
 
 const router = new Router({
@@ -12,6 +16,8 @@ const router = new Router({
 });
 
 router.beforeEach((to, from, next) => {
+  store.dispatch(CLEAR_STATUS_BAR);
+
   if (to.matched.some(record => record.meta.requiresAuth)) {
     if (!store.getters.loggedIn) {
       next({

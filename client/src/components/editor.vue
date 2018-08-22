@@ -24,7 +24,6 @@ import 'quill/dist/quill.bubble.css'
 import { quillEditor } from 'vue-quill-editor';
 import {
   UPDATE_STATUS_BAR,
-  CLEAR_STATUS_BAR,
   UPDATE_STORY,
 } from '@/store/actions.type';
 
@@ -44,7 +43,7 @@ export default {
       this.updatePost();
     },
     updatePost() {
-      this.$store.dispatch(UPDATE_STATUS_BAR, { isLoading: true, notice: 'saving' });
+      // this.$store.dispatch(UPDATE_STATUS_BAR, { isLoading: true, notice: 'saving...' });
       this.$store.dispatch(
         UPDATE_STORY,
         {
@@ -52,7 +51,7 @@ export default {
           params: { html_body: this.editorContent, title: this.editorTitle },
         },
       ).then(() => {
-        this.$store.dispatch(CLEAR_STATUS_BAR)
+        this.$store.dispatch(UPDATE_STATUS_BAR, { notice: 'saved' });
       });
     }
   },

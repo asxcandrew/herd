@@ -1,7 +1,14 @@
 <template>
   <div class="navbar-plugin story-plugin">
     <el-button
-      v-if="story"
+      v-if="isPublished"
+      type="text"
+      @click="onClickHide"
+    >
+      hide
+    </el-button>
+    <el-button
+      v-else
       type="text"
       @click="onClickPublish"
     >
@@ -13,25 +20,28 @@
 <script>
 import {
   UPDATE_STATUS_BAR,
-  UPDATE_STORY,
+  PUBLISH_STORY,
+  HIDE_STORY,
 } from '@/store/actions.type';
 
 export default {
   name: 'story-navbar-plugin',
   computed: {
+    isPublished() {
+      return this.story && this.story.active;
+    },
     story(){
-      return this.$store.getters.getStoryById(this.$route.params.id)
+      return this.$store.getters.getStoryById(this.$route.params.id);
     },
   },
   methods: {
+    onClickHide() {
+      this.$store.dispatch(HIDE_STORY, this.story.id);
+    },
     onClickPublish() {
-      this.$store.dispatch(
-        UPDATE_STORY,
-        {
-          id: this.story.id,
-          params: { active: true, published_at: Date.now() },
-        },
-      );
+      this.$store.dispatch(PUBLISH_STORY, this.story.id).then(() => {
+        this.$store.dispatch(UPDATE_STATUS_BAR, { notice: 'published' });
+      });
     }
   },
 }

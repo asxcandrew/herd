@@ -10,13 +10,8 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-type storyResponse struct {
-	HTMLBody string `json:"html_body" binding:"required"`
-	Title    string `json:"title" binding:"required"`
-}
-
 func CreateStory(c *gin.Context) {
-	var json storyResponse
+	var json models.StoryResponse
 
 	if err := c.BindJSON(&json); err == nil {
 		userID, _ := strconv.ParseUint(c.Keys["userID"].(string), 10, 32)
@@ -41,19 +36,12 @@ func CreateStory(c *gin.Context) {
 }
 
 func UpdateStory(c *gin.Context) {
-	var json storyResponse
+	var json models.StoryResponse
 	story := &models.Story{}
 	findStory(c, story)
 
 	if err := c.BindJSON(&json); err == nil {
-		if json.Title != "" {
-			story.Title = json.Title
-		}
-		if json.HTMLBody != "" {
-			story.HTMLBody = json.HTMLBody
-		}
-
-		err := models.Update(story)
+		err := services.UpdateStory(story, &json)
 
 		if err != nil {
 			c.JSON(http.StatusBadRequest, gin.H{"status": http.StatusBadRequest, "data": err})
@@ -64,7 +52,7 @@ func UpdateStory(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusOK, gin.H{"status": http.StatusCreated, "data": story})
+	c.JSON(http.StatusOK, gin.H{"status": http.StatusOK, "data": story})
 }
 
 func DeleteStory(c *gin.Context) {

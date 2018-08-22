@@ -4,6 +4,8 @@ import {
   GET_STORY,
   CREATE_STORY,
   UPDATE_STORY,
+  PUBLISH_STORY,
+  HIDE_STORY,
   DELETE_STORY,
   GET_STORY_BODY,
 } from '../actions.type'
@@ -85,6 +87,25 @@ const actions = {
         commit(ADD_STORY, data.data)
         return data
       })
+  },
+  [PUBLISH_STORY] ({ dispatch }, id) {
+    let date = new Date();
+    return dispatch(
+      UPDATE_STORY,
+      {
+        id: id,
+        params: { active: 'true', published_at: date.toISOString() },
+      },
+    );
+  },
+  [HIDE_STORY] ({ dispatch }, id) {
+    return dispatch(
+      UPDATE_STORY,
+      {
+        id: id,
+        params: { active: 'false' },
+      },
+    );
   },
   [DELETE_STORY] ({ commit }, id) {
     return StoryService.delete(id)

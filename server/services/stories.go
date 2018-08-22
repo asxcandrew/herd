@@ -1,6 +1,7 @@
 package services
 
 import (
+	"strconv"
 	"strings"
 
 	"github.com/asxcandrew/herd/server/models"
@@ -24,6 +25,32 @@ func CreateStory(story *models.Story) error {
 	}
 
 	err := models.Create(story)
+
+	return err
+}
+
+func UpdateStory(story *models.Story, params *models.StoryResponse) error {
+	if params.Title != "" {
+		story.Title = params.Title
+	}
+	if params.HTMLBody != "" {
+		story.HTMLBody = params.HTMLBody
+	}
+
+	if params.Active != "" {
+		isActive, err := strconv.ParseBool(params.Active)
+
+		if err != nil {
+			return err
+		}
+		story.Active = isActive
+	}
+
+	if story.PublishedAt.IsZero() && !params.PublishedAt.IsZero() {
+		story.PublishedAt = params.PublishedAt
+	}
+
+	err := models.Update(story)
 
 	return err
 }

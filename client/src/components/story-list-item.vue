@@ -13,18 +13,18 @@
     </el-dialog>
     <h3>
       <router-link
-        :to="{ name: 'edit-story', params: { id: story.id }}"
+        :to="{ name: 'edit-story', params: { uid: story.uid }}"
         class="unstyled-link"
       >{{ story.title }}</router-link>
     </h3>
     <span>
       <span class="substring last-edited">
-        {{ $t('views.profile.stories.lastEdited', { date: lastUpdatedDate }) }}
+        {{ $t('views.profile.stories.lastEdited', { date: formatDate(story.updated_at) }) }}
       </span>
       <el-button type="text" @click="openDialog">
         {{ $t('views.profile.stories.deleteButton') }}
       </el-button>
-      <el-button type="text" @click="$router.push({ name: 'edit-story', params: { id: story.id }})">
+      <el-button type="text" @click="$router.push({ name: 'edit-story', params: { uid: story.uid }})">
         {{ $t('views.profile.stories.editButton') }}
       </el-button>
     </span>
@@ -32,17 +32,13 @@
 </template>
 
 <script>
-import dateFormat from 'dateformat';
+import storyMixin from '@/mixins/story-utils';
 import { DELETE_STORY } from '@/store/actions.type';
 
 export default {
   name: 'story-list-item',
   props: ['story'],
-  computed: {
-    lastUpdatedDate(){
-      return dateFormat(this.story.updated_at, 'mmm d yyyy');
-    },
-  },
+  mixins: [ storyMixin ],
   data() {
     return {
       dialogVisible: false
@@ -57,7 +53,7 @@ export default {
       this.deleteStory();
     },
     deleteStory() {
-      this.$store.dispatch(DELETE_STORY, this.story.id);
+      this.$store.dispatch(DELETE_STORY, this.story.uid);
     },
   },
 };

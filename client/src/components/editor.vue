@@ -47,7 +47,7 @@ export default {
       this.$store.dispatch(
         UPDATE_STORY,
         {
-          id: this.story.id,
+          uid: this.story.uid,
           params: { html_body: this.editorContent, title: this.editorTitle },
         },
       ).then(() => {

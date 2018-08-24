@@ -9,6 +9,12 @@ const baseRoutes = [
     component: require('@/views/feed').default,
   },
   {
+    path: '/story/:uri',
+    name: 'show-story',
+    meta: { requiresAuth: false },
+    component: require('@/views/story').default,
+  },
+  {
     name: 'not-found',
     path: '*',
     component: notFound,

@@ -10,7 +10,7 @@ import { GET_STORY, GET_STORY_BODY } from '@/store/actions.type';
 
 export default {
   name: 'edit-story',
-  props: ['id'],
+  props: ['uid'],
   components: {
     editor,
   },
@@ -21,13 +21,13 @@ export default {
   },
   computed: {
     story(){
-      return this.$store.getters.getStoryById(this.id)
+      return this.$store.getters.getStoryByUid(this.uid)
     },
   },
   beforeRouteEnter (to, from, next) {
     next(vm => {
-      vm.$store.dispatch(GET_STORY, vm.id).then( _ => {
-        vm.$store.dispatch(GET_STORY_BODY, vm.id).then( _ => { vm.storyIsReady = true })
+      vm.$store.dispatch(GET_STORY, vm.uid).then( _ => {
+        vm.$store.dispatch(GET_STORY_BODY, vm.uid).then( _ => { vm.storyIsReady = true })
       })
     })
   },

@@ -1,6 +1,10 @@
 package models
 
-import "time"
+import (
+	"time"
+
+	"github.com/go-pg/pg/orm"
+)
 
 type StoryResponse struct {
 	HTMLBody    string    `json:"html_body"`
@@ -10,6 +14,6 @@ type StoryResponse struct {
 }
 
 //QueryStories returns query for index path
-func QueryStories(stories *[]Story) error {
-	return DB().Model(stories).Column("Author", "Tags").Select()
+func QueryStories(stories *[]Story) *orm.Query {
+	return DB().Model(stories).Column("Author", "Tags")
 }

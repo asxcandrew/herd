@@ -1,4 +1,5 @@
 export const FETCH_STORIES = 'fetchStories';
+export const FETCH_FEED = 'fetchFeed';
 export const GET_STORY = 'getStory';
 export const GET_STORY_BODY = 'getStoryBody';
 export const CREATE_STORY = 'createStory';

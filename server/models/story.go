@@ -6,7 +6,7 @@ import "time"
 type Story struct {
 	timestampable
 
-	ID          uint64    `json:"id"`
+	ID          uint64    `json:"-"`
 	UID         string    `json:"uid" validate:"required"`
 	Link        string    `json:"link"`
 	HTMLBody    string    `json:"-" validate:"required"`

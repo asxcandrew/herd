@@ -1,6 +1,7 @@
-import { StoryService } from '@/services';
+import { StoryService, PublicService } from '@/services';
 import {
   FETCH_STORIES,
+  FETCH_FEED,
   GET_STORY,
   CREATE_STORY,
   UPDATE_STORY,
@@ -26,8 +27,8 @@ const getters = {
   stories: (state) => {
     return state.stories
   },
-  getStoryById: (state) => (id) => {
-    return state.stories.find(story => story.id == id)
+  getStoryByUid: (state) => (uid) => {
+    return state.stories.find(story => story.uid == uid)
   }
 };
 
@@ -38,12 +39,12 @@ const mutations = {
   [ADD_STORY] (state, story) {
     state.stories.push(story)
   },
-  [REMOVE_STORY] (state, id) {
-    var index = state.stories.findIndex(item => item.id === id);
+  [REMOVE_STORY] (state, uid) {
+    var index = state.stories.findIndex(item => item.uid === uid);
     state.stories.splice(index, 1);
   },
   [ADD_BODY_STORY] (state, data) {
-    let story = state.stories.find(item => item.id == data.id)
+    let story = state.stories.find(item => item.uid == data.uid)
     story.html_body = data.html_body
   }
 };
@@ -56,18 +57,25 @@ const actions = {
         return data
       })
   },
-  [GET_STORY] ({ commit }, id) {
-    if (state.stories.findIndex(story => story.id === id) != -1) {
-      return (async () => {})();
-    }
-    return StoryService.get(id)
+  [FETCH_FEED] ({ commit }, params) {
+    return PublicService.feed()
       .then(({ data }) => {
-        commit(ADD_STORY, data.data)
+        commit(SET_STORIES, data.data)
         return data
       })
   },
-  [GET_STORY_BODY] ({ commit }, id) {
-    return StoryService.getBody(id)
+  [GET_STORY] ({ commit, getters }, uid) {
+    if (getters.getStoryByUid(uid)) {
+      return getters.getStoryByUid(uid);
+    }
+    return StoryService.get(uid)
+      .then(({ data }) => {
+        commit(ADD_STORY, data.data)
+        return data.data
+      })
+  },
+  [GET_STORY_BODY] ({ commit }, uid) {
+    return StoryService.getBody(uid)
       .then(({ data }) => {
         commit(ADD_BODY_STORY, data.data)
         return data
@@ -77,41 +85,41 @@ const actions = {
     return StoryService.post(params)
       .then(({ data }) => {
         commit(ADD_STORY, data.data)
-        return data
+        return data.data
       })
   },
-  [UPDATE_STORY] ({ commit }, {id, params}) {
-    return StoryService.put(id, params)
+  [UPDATE_STORY] ({ commit }, {uid, params}) {
+    return StoryService.put(uid, params)
       .then(({ data }) => {
-        commit(REMOVE_STORY, id)
+        commit(REMOVE_STORY, uid)
         commit(ADD_STORY, data.data)
         return data
       })
   },
-  [PUBLISH_STORY] ({ dispatch }, id) {
+  [PUBLISH_STORY] ({ dispatch }, uid) {
     let date = new Date();
     return dispatch(
       UPDATE_STORY,
       {
-        id: id,
+        uid: uid,
         params: { active: 'true', published_at: date.toISOString() },
       },
     );
   },
-  [HIDE_STORY] ({ dispatch }, id) {
+  [HIDE_STORY] ({ dispatch }, uid) {
     return dispatch(
       UPDATE_STORY,
       {
-        id: id,
+        uid: uid,
         params: { active: 'false' },
       },
     );
   },
-  [DELETE_STORY] ({ commit }, id) {
-    return StoryService.delete(id)
+  [DELETE_STORY] ({ commit }, uid) {
+    return StoryService.delete(uid)
       .then(({ status, data }) => {
         if (status == 200) {
-          commit(REMOVE_STORY, id)
+          commit(REMOVE_STORY, uid)
         } else {
           //show error
         }

@@ -15,7 +15,7 @@ var replacer = strings.NewReplacer(" ", "-", "\t", "-", "`", "-")
 
 //CreateStory creates story with default values
 func CreateStory(story *models.Story) error {
-	story.UID = models.RandString(10)
+	story.UID = models.RandString(12)
 	if story.Link == "" {
 		pickLength := maxTitleLength
 		if len(story.Title) < maxTitleLength {

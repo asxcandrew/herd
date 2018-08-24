@@ -13,6 +13,7 @@ func ApiRoutes(r *gin.Engine) {
 	public.POST("/sign_up", H.Signup)
 	public.POST("/sign_in", H.AuthMiddleware().LoginHandler)
 	public.GET("/username_availability/:username", H.UsernameAvalability)
+	public.GET("/feed", H.Feed)
 
 	authorized := v1.Group("/a")
 

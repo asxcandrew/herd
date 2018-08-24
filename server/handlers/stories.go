@@ -28,7 +28,6 @@ func CreateStory(c *gin.Context) {
 			c.JSON(http.StatusNotFound, gin.H{"status": http.StatusBadRequest, "data": err})
 			return
 		}
-
 		c.JSON(http.StatusOK, gin.H{"status": http.StatusCreated, "data": story})
 	} else {
 		c.JSON(http.StatusBadRequest, gin.H{"status": http.StatusBadRequest, "data": err})
@@ -86,7 +85,7 @@ func GetStory(c *gin.Context) {
 func QueryStories(c *gin.Context) {
 
 	var stories []models.Story
-	err := models.QueryStories(&stories)
+	err := models.QueryStories(&stories).Select()
 
 	if err != nil || len(stories) == 0 {
 		c.JSON(http.StatusNotFound, gin.H{"status": http.StatusNotFound, "data": ""})
@@ -101,24 +100,15 @@ func GetStoryBody(c *gin.Context) {
 	findStory(c, story)
 
 	res := gin.H{
-		"id":        c.Param("id"),
+		"uid":       story.UID,
 		"html_body": story.HTMLBody,
 	}
 	c.JSON(http.StatusOK, gin.H{"status": http.StatusOK, "data": res})
 }
 
 func findStory(c *gin.Context, story *models.Story) {
-	storyID, err := strconv.ParseUint(c.Param("id"), 10, 32)
-
+	err := models.DB().Model(story).Where("uid = ?", c.Param("uid")).Select()
 	if err != nil {
-		c.JSON(http.StatusNotFound, gin.H{"status": http.StatusNotFound, "data": ""})
-		return
-	}
-
-	story.ID = storyID
-	err = models.DB().Select(story)
-	if err != nil {
-		c.JSON(http.StatusNotFound, gin.H{"status": http.StatusNotFound, "data": ""})
-		return
+		c.AbortWithStatusJSON(http.StatusNotFound, gin.H{"status": http.StatusNotFound, "data": ""})
 	}
 }

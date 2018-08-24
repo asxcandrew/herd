@@ -10,8 +10,8 @@ func StoriesRoutes(route *gin.RouterGroup) {
 	story := route.Group("/stories")
 	story.POST("/", H.CreateStory)
 	story.GET("/", H.QueryStories)
-	story.GET("/:id", H.GetStory)
-	story.PUT("/:id", H.UpdateStory)
-	story.GET("/:id/body", H.GetStoryBody)
-	story.DELETE("/:id", H.DeleteStory)
+	story.GET("/:uid", H.GetStory)
+	story.PUT("/:uid", H.UpdateStory)
+	story.GET("/:uid/body", H.GetStoryBody)
+	story.DELETE("/:uid", H.DeleteStory)
 }

@@ -14,13 +14,13 @@ export default {
     editor,
   },
   created() {
-    this.$store.dispatch(CREATE_STORY, this.params).then(data => {
-      this.id = data.data.id
-    })
+    this.$store.dispatch(CREATE_STORY, this.params).then(story => {
+      this.$router.push({ name: 'edit-story', params: { uid: story.uid }});
+    });
   },
   computed: {
     story(){
-      return this.$store.getters.getStoryById(this.id)
+      return this.$store.getters.getStoryByUid(this.uid)
     },
   },
   data() {

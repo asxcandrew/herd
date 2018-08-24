@@ -12,6 +12,11 @@ class PublicResource extends BaseResource {
     const url = `/username_availability/${username}`;
     return this.api.get(url, {});
   };
+
+  feed(){
+    const url = `/feed`;
+    return this.api.get(url, {});
+  };
   
   signup(data){
     const url = '/sign_up';

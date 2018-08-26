@@ -6,7 +6,7 @@ import (
 	"strconv"
 	"time"
 
-	jwt "github.com/appleboy/gin-jwt"
+	jwt "github.com/asxcandrew/gin-jwt"
 	"github.com/asxcandrew/herd/server/models"
 	"github.com/asxcandrew/herd/server/services"
 	"github.com/gin-gonic/gin"
@@ -14,11 +14,16 @@ import (
 
 var authMiddleware *jwt.GinJWTMiddleware
 
-type SignupResponse struct {
+type signupStruct struct {
 	Email    string `json:"email" binding:"required"`
 	Password string `form:"password" json:"password" binding:"required"`
 	Username string `form:"username" json:"username" binding:"required"`
 	Name     string `form:"name" json:"name"`
+}
+
+type loginStruct struct {
+	Email    string `form:"email" json:"email" binding:"required"`
+	Password string `form:"password" json:"password" binding:"required"`
 }
 
 //AuthMiddleware provides jwt middleware object
@@ -29,16 +34,17 @@ func AuthMiddleware() *jwt.GinJWTMiddleware {
 			Key:           []byte("secret key"), //TODO: provide secret key in env var
 			Timeout:       time.Hour * 24,
 			MaxRefresh:    time.Hour,
-			Authenticator: Auth,
-			Authorizator: func(userId string, c *gin.Context) bool {
-				return true
+			Authenticator: Login,
+			PayloadFunc: func(data interface{}) jwt.MapClaims {
+				if v, ok := data.(*models.User); ok {
+					return jwt.MapClaims{
+						"role": v.Role,
+						"id":   v.ID,
+					}
+				}
+				return jwt.MapClaims{}
 			},
-			Unauthorized: func(c *gin.Context, code int, message string) {
-				c.JSON(code, gin.H{
-					"code":    code,
-					"message": message,
-				})
-			},
+			Unauthorized:  func(c *gin.Context, code int, message string) { c.Next() },
 			TokenLookup:   "header:Authorization",
 			TokenHeadName: "Bearer",
 			TimeFunc:      time.Now,
@@ -54,7 +60,7 @@ func AuthMiddleware() *jwt.GinJWTMiddleware {
 
 // Signup handler
 func Signup(c *gin.Context) {
-	var json SignupResponse
+	var json signupStruct
 
 	if err := c.BindJSON(&json); err == nil {
 		user := &models.User{
@@ -70,24 +76,28 @@ func Signup(c *gin.Context) {
 		}
 
 		mw := AuthMiddleware()
-		userToken := mw.TokenGenerator(strconv.Itoa(int(user.ID)))
+		userToken, t, _ := mw.TokenGenerator(strconv.Itoa(int(user.ID)), user)
 
 		c.JSON(http.StatusOK, gin.H{
 			"token":  userToken,
-			"expire": mw.TimeFunc().Add(mw.Timeout).Format(time.RFC3339),
+			"expire": t,
 		})
 	} else {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 	}
 }
 
-// Auth handler
-func Auth(email string, password string, c *gin.Context) (string, bool) {
-	user, err := services.Login(email, password)
-
-	if err != nil {
-		return "", false
+// Login handler
+func Login(c *gin.Context) (interface{}, error) {
+	var json loginStruct
+	if err := c.Bind(&json); err != nil {
+		return nil, jwt.ErrMissingLoginValues
 	}
 
-	return strconv.Itoa(int(user.ID)), true
+	user, err := services.Login(json.Email, json.Password)
+	if err != nil {
+		return nil, jwt.ErrFailedAuthentication
+	}
+
+	return user, nil
 }

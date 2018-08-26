@@ -4,6 +4,7 @@ import {
   SIGN_IN,
   SIGN_UP,
   SIGN_OUT,
+  GET_CURRENT_USER,
 } from '../actions.type';
 import {
   DESTROY_SESSION,
@@ -19,7 +20,7 @@ const getters = {
     return state.session;
   },
   loggedIn: (state) => {
-    return state.session && state.session.token_expiration > Date.now();
+    return state.session && state.session.user && state.session.token_expiration > Date.now();
   }
 };
 
@@ -28,8 +29,8 @@ const mutations = {
     state.session = {};
     storage.set('session_info', state.session);
   },
-  [CHANGE_SESSION] (state, session) {
-    Object.assign(state.session, session);
+  [CHANGE_SESSION] (state, data) {
+    state.session = Object.assign({}, state.session, data);
     storage.set('session_info', state.session);
   },
 };
@@ -37,12 +38,13 @@ const mutations = {
 const actions = {
   [SIGN_IN] ({ commit, dispatch }, form) {
     return PublicService.signin({
-      username: form.email.trim(),
+      email: form.email.trim(),
       password: form.password.trim(),
     }).then(res => {
-      commit(CHANGE_SESSION, { token: res.data.token, token_expiration: Date.parse(res.data.expire) });
-      return dispatch('getCurrentUser');
-    });
+        commit(CHANGE_SESSION, { token: res.data.token, token_expiration: Date.parse(res.data.expire) });
+    }).then(_ => {
+      return dispatch(GET_CURRENT_USER);
+    })
   },
   [SIGN_UP] ({ commit }, form ) {
     return PublicService.signup(form).then((res) => {

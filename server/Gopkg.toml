@@ -34,8 +34,8 @@
   version = "1.2.0"
 
 [[constraint]]
-  name = "github.com/appleboy/gin-jwt"
-  version = "2.3.1"
+  name = "github.com/asxcandrew/gin-jwt"
+  branch = "master"
 
 [[constraint]]
   branch = "master"
@@ -52,3 +52,7 @@
 [[constraint]]
   name = "github.com/go-pg/migrations"
   version = "6.2.0"
+
+[[constraint]]
+  name = "github.com/casbin/casbin"
+  version = "1.6.0"

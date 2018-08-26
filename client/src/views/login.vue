@@ -31,6 +31,10 @@
 </template>
 
 <script>
+import {
+  SIGN_IN,
+} from '@/store/actions.type';
+
 export default {
   name: 'login',
   methods: {
@@ -40,9 +44,8 @@ export default {
     onSubmit() {
       this.$refs.form.validate((valid) => {
         if (valid) {
-          this.$store.dispatch('signIn', this.form)
+          this.$store.dispatch(SIGN_IN, this.form)
             .then(() => {
-              // this.$router.replace({ path: this.$route.query.redirect || '/' })
               this.$store.dispatch('closeModal', 'signin');
             }).catch((error) => {
               this.loginError = error.response.data.message;

@@ -10,12 +10,38 @@
   version = "v0.3.0"
 
 [[projects]]
-  digest = "1:a164e093eccfde4fb63dc94707f3570d112ff4549072a065a48813c37c0c76a9"
-  name = "github.com/appleboy/gin-jwt"
+  digest = "1:5d3e23515e7916c152cc665eda0f7eaf6fdf8fdfe7c3dbac97049bcbd649b33f"
+  name = "github.com/Knetic/govaluate"
   packages = ["."]
   pruneopts = "UT"
-  revision = "f7347d7c16fc8297bf5b7215b9e4847a5ca05d90"
-  version = "v2.3.1"
+  revision = "d216395917cc49052c7c7094cf57f09657ca08a8"
+  version = "v3.0.0"
+
+[[projects]]
+  branch = "master"
+  digest = "1:fb5be88d1bb480d7f01344e5ce16d8b6e8a1d7a91608ed6794ea4a79e2feab28"
+  name = "github.com/asxcandrew/gin-jwt"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "2b97bf2059a48c82f9937dddd89b364b426b25dd"
+
+[[projects]]
+  digest = "1:2f30fb22e56424a767d5734756a4cffc489fcbac43146edb15ca5bf4e233cf0d"
+  name = "github.com/casbin/casbin"
+  packages = [
+    ".",
+    "config",
+    "effect",
+    "model",
+    "persist",
+    "persist/file-adapter",
+    "rbac",
+    "rbac/default-role-manager",
+    "util",
+  ]
+  pruneopts = "UT"
+  revision = "695c374a6617e9cdc930e8666307a772577cbd70"
+  version = "v1.6.0"
 
 [[projects]]
   branch = "master"
@@ -85,6 +111,14 @@
   version = "v0.0.3"
 
 [[projects]]
+  digest = "1:40e195917a951a8bf867cd05de2a46aaf1806c50cf92eebf4c16f78cd196f747"
+  name = "github.com/pkg/errors"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "645ef00459ed84a119197bfb8d8205042c6df63d"
+  version = "v0.8.0"
+
+[[projects]]
   digest = "1:03aa6e485e528acb119fb32901cf99582c380225fc7d5a02758e08b180cb56c3"
   name = "github.com/ugorji/go"
   packages = ["codec"]
@@ -140,7 +174,8 @@
   analyzer-version = 1
   input-imports = [
     "github.com/BurntSushi/toml",
-    "github.com/appleboy/gin-jwt",
+    "github.com/asxcandrew/gin-jwt",
+    "github.com/casbin/casbin",
     "github.com/gin-gonic/gin",
     "github.com/go-pg/migrations",
     "github.com/go-pg/pg",

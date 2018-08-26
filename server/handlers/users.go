@@ -9,7 +9,14 @@ import (
 
 //CurrentUser handler for users/me
 func CurrentUser(c *gin.Context) {
-	user := c.Keys["CurrentUser"].(*models.User)
+	userID := uint64(c.Keys["userID"].(float64))
+	user := &models.User{ID: userID}
+	err := models.DB().Select(user)
+
+	if err != nil {
+		c.JSON(http.StatusNotFound, gin.H{"status": http.StatusNotFound, "data": ""})
+		return
+	}
 
 	c.JSON(http.StatusOK, gin.H{"status": http.StatusOK, "data": user})
 }

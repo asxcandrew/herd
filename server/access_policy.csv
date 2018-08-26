@@ -1,0 +1,5 @@
+p, guest, /api/v1/p/*, *
+p, guest, /api/v1/a/stories/*, GET
+p, user, /api/v1/a/*, *
+p, admin, /api/v1/*, *
+g, user, guest

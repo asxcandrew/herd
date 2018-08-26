@@ -14,3 +14,4 @@ export const SIGN_UP = 'signUp';
 export const SIGN_OUT = 'signOut';
 export const SHOW_MODAL = 'showModal';
 export const CLOSE_MODAL = 'closeModal';
+export const GET_CURRENT_USER = 'getCurrentUser';

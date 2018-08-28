@@ -15,6 +15,11 @@ const baseRoutes = [
     component: require('@/views/story').default,
   },
   {
+    path: '/@:username',
+    name: 'public-profile',
+    component: require('@/views/public-profile').default,
+  },
+  {
     name: 'not-found',
     path: '*',
     component: notFound,

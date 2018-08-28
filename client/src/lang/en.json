@@ -40,7 +40,9 @@
       "dropdown": {
         "newStory": "New story",
         "stories": "Stories",
-        "signOut": "Sign out"
+        "signOut": "Sign out",
+        "profile": "Profile",
+        "settings": "Settings"
       }
     }
   },

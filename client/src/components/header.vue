@@ -23,7 +23,12 @@
           </li>
           <li v-if="loggedIn">
             <el-dropdown trigger="hover">
-              <span class="el-dropdown-link userinfo-inner">{{ session.user.name }}</span>
+              <span class="el-dropdown-link userinfo-inner">
+                <avatar
+                  :username="session.user.name"
+                  :size="36"
+                />
+              </span>
               <el-dropdown-menu slot="dropdown">
                 <el-dropdown-item @click.native="$router.push({ name: 'new-story'})">
                   {{ $t('components.header.dropdown.newStory') }}
@@ -32,8 +37,12 @@
                   {{ $t('components.header.dropdown.stories') }}
                 </el-dropdown-item>
                 <el-dropdown-item>Bookmarks</el-dropdown-item>
-                <el-dropdown-item>Profile</el-dropdown-item>
-                <el-dropdown-item>Settings</el-dropdown-item>
+                <el-dropdown-item @click.native="$router.push({name: 'public-profile', params: { username: session.user.username }})">
+                  {{ $t('components.header.dropdown.profile') }}
+                </el-dropdown-item>
+                <el-dropdown-item @click.native="$router.push({name: 'settings'})">
+                  {{ $t('components.header.dropdown.settings') }}
+                </el-dropdown-item>
                 <el-dropdown-item divided @click.native="logout">
                   {{ $t('components.header.dropdown.signOut') }}
                 </el-dropdown-item>
@@ -55,6 +64,7 @@
 </template>
 
 <script>
+import Avatar from 'vue-avatar';
 import { mapGetters } from 'vuex';
 import Login from '@/views/login';
 import Signup from '@/views/signup';
@@ -79,6 +89,7 @@ export default {
     }
   },
   components: {
+    Avatar,
     Login,
     Signup,
   },
@@ -118,7 +129,6 @@ export default {
     display: flex;
     li {
       list-style: none;
-      display: inline;
       margin-right: 1em;
       &:last-child {
         margin-right:0;

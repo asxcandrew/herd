@@ -6,6 +6,11 @@ export default [
     component: require('@/views/profile/layout').default,
     children: [
       {
+        name: 'settings',
+        path: 'settings',
+        component: require('@/views/profile/settings').default,
+      },
+      {
         name: 'new-story',
         path: 'new-story',
         meta: { navabrPlugin: 'story' },

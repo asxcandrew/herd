@@ -1,34 +1,26 @@
 package config
 
 import (
-	"os"
-
-	"github.com/BurntSushi/toml"
+	"github.com/kelseyhightower/envconfig"
 )
 
-var c *tomlConfig
-
-type tomlConfig struct {
-	DB database `toml:"database"`
+type conf struct {
+	DBHost        string `required:"true"`
+	DBPort        string `default:"5432"`
+	DBUser        string `required:"true"`
+	DBPass        string `required:"true"`
+	DBName        string `required:"true"`
+	TLS           bool
+	AuthSecretKey string `split_words:"true" required:"true"`
 }
 
-type database struct {
-	Addr string
-	Name string
-	User string
-	Pass string
-	TLS  bool
-}
+var C conf
 
-func Root() *tomlConfig {
-	if c == nil {
-		c = &tomlConfig{}
-		if _, err := toml.DecodeFile("config.toml", c); err != nil {
-			return &tomlConfig{}
-		}
-		if c.DB.Addr == "" {
-			c.DB.Addr = os.Getenv("DB_HOST") + ":" + os.Getenv("DB_PORT")
-		}
+func init() {
+	C = conf{}
+	err := envconfig.Process("api", &C)
+
+	if err != nil {
+		panic(err)
 	}
-	return c
 }

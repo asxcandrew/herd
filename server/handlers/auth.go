@@ -3,10 +3,10 @@ package handlers
 import (
 	"log"
 	"net/http"
-	"strconv"
 	"time"
 
-	jwt "github.com/asxcandrew/gin-jwt"
+	jwt "github.com/appleboy/gin-jwt"
+	"github.com/asxcandrew/herd/server/config"
 	"github.com/asxcandrew/herd/server/models"
 	"github.com/asxcandrew/herd/server/services"
 	"github.com/gin-gonic/gin"
@@ -31,15 +31,15 @@ func AuthMiddleware() *jwt.GinJWTMiddleware {
 	if authMiddleware == nil {
 		authMiddleware = &jwt.GinJWTMiddleware{
 			Realm:         "herd",
-			Key:           []byte("secret key"), //TODO: provide secret key in env var
+			Key:           []byte(config.C.AuthSecretKey),
 			Timeout:       time.Hour * 24,
 			MaxRefresh:    time.Hour,
 			Authenticator: Login,
 			PayloadFunc: func(data interface{}) jwt.MapClaims {
 				if v, ok := data.(*models.User); ok {
 					return jwt.MapClaims{
-						"role": v.Role,
-						"id":   v.ID,
+						"userRole": v.Role,
+						"userID":   v.ID,
 					}
 				}
 				return jwt.MapClaims{}
@@ -48,6 +48,7 @@ func AuthMiddleware() *jwt.GinJWTMiddleware {
 			TokenLookup:   "header:Authorization",
 			TokenHeadName: "Bearer",
 			TimeFunc:      time.Now,
+			DisabledAbort: true,
 		}
 		err := authMiddleware.MiddlewareInit()
 
@@ -76,7 +77,7 @@ func Signup(c *gin.Context) {
 		}
 
 		mw := AuthMiddleware()
-		userToken, t, _ := mw.TokenGenerator(strconv.Itoa(int(user.ID)), user)
+		userToken, t, _ := mw.TokenGenerator(user)
 
 		c.JSON(http.StatusOK, gin.H{
 			"token":  userToken,

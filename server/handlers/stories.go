@@ -3,6 +3,7 @@ package handlers
 import (
 	"net/http"
 
+	jwt "github.com/appleboy/gin-jwt"
 	"github.com/asxcandrew/herd/server/services"
 
 	"github.com/asxcandrew/herd/server/models"
@@ -13,10 +14,8 @@ func CreateStory(c *gin.Context) {
 	var json models.StoryResponse
 
 	if err := c.BindJSON(&json); err == nil {
-		userID := uint64(c.Keys["userID"].(float64))
-
 		story := &models.Story{
-			AuthorID: userID,
+			AuthorID: userId(c),
 			Title:    json.Title,
 			HTMLBody: json.HTMLBody,
 		}
@@ -38,9 +37,7 @@ func UpdateStory(c *gin.Context) {
 	story := &models.Story{}
 	findStory(c, story)
 
-	userID := uint64(c.Keys["userID"].(float64))
-
-	if story.AuthorID != userID {
+	if story.AuthorID != userId(c) {
 		c.AbortWithStatus(http.StatusForbidden)
 		return
 	}
@@ -64,9 +61,7 @@ func DeleteStory(c *gin.Context) {
 	story := &models.Story{}
 	findStory(c, story)
 
-	userID := uint64(c.Keys["userID"].(float64))
-
-	if story.AuthorID != userID {
+	if story.AuthorID != userId(c) {
 		c.AbortWithStatus(http.StatusForbidden)
 		return
 	}
@@ -90,8 +85,7 @@ func GetStory(c *gin.Context) {
 
 func QueryStories(c *gin.Context) {
 	var stories []models.Story
-	userID := uint64(c.Keys["userID"].(float64))
-	err := models.QueryStories(&stories).Where("author_id = ?", userID).Select()
+	err := models.QueryStories(&stories).Where("author_id = ?", userId(c)).Select()
 
 	if err != nil || len(stories) == 0 {
 		c.JSON(http.StatusNotFound, gin.H{"status": http.StatusNotFound, "data": ""})
@@ -113,8 +107,13 @@ func GetStoryBody(c *gin.Context) {
 }
 
 func findStory(c *gin.Context, story *models.Story) {
-	err := models.DB().Model(story).Where("uid = ?", c.Param("uid")).Select()
+	err := models.QueryStories(story).Where("uid = ?", c.Param("uid")).Select()
 	if err != nil {
 		c.AbortWithStatus(http.StatusNotFound)
 	}
+}
+
+func userId(c *gin.Context) uint64 {
+	claims := jwt.ExtractClaims(c)
+	return uint64(claims["userID"].(float64))
 }

@@ -1,10 +1,9 @@
 package middlewares
 
 import (
-	"fmt"
 	"net/http"
 
-	jwt "github.com/asxcandrew/gin-jwt"
+	jwt "github.com/appleboy/gin-jwt"
 	"github.com/asxcandrew/herd/server/models"
 	"github.com/casbin/casbin"
 	"github.com/gin-gonic/gin"
@@ -39,13 +38,11 @@ func (a *basicAuthorizer) CheckPermission(r *http.Request) bool {
 }
 
 func (a *basicAuthorizer) getRole() string {
-	fmt.Println("GET ROLE")
-	fmt.Println(a.context.Keys["JWT_PAYLOAD"])
 	if a.context.Keys["JWT_PAYLOAD"] == nil {
 		return models.GuestRole
 	}
 	claims := jwt.ExtractClaims(a.context)
-	return claims["role"].(string)
+	return claims["userRole"].(string)
 }
 
 // RequirePermission returns the 403 Forbidden to the client

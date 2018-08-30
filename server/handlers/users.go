@@ -3,13 +3,15 @@ package handlers
 import (
 	"net/http"
 
+	jwt "github.com/appleboy/gin-jwt"
 	"github.com/asxcandrew/herd/server/models"
 	"github.com/gin-gonic/gin"
 )
 
 //CurrentUser handler for users/me
 func CurrentUser(c *gin.Context) {
-	userID := uint64(c.Keys["userID"].(float64))
+	claims := jwt.ExtractClaims(c)
+	userID := uint64(claims["userID"].(float64))
 	user := &models.User{ID: userID}
 	err := models.DB().Select(user)
 

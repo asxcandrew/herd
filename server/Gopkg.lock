@@ -2,14 +2,6 @@
 
 
 [[projects]]
-  digest = "1:b16fbfbcc20645cb419f78325bb2e85ec729b338e996a228124d68931a6f2a37"
-  name = "github.com/BurntSushi/toml"
-  packages = ["."]
-  pruneopts = "UT"
-  revision = "b26d9c308763d68093482582cea63d69be07a0f0"
-  version = "v0.3.0"
-
-[[projects]]
   digest = "1:5d3e23515e7916c152cc665eda0f7eaf6fdf8fdfe7c3dbac97049bcbd649b33f"
   name = "github.com/Knetic/govaluate"
   packages = ["."]
@@ -19,11 +11,11 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:fb5be88d1bb480d7f01344e5ce16d8b6e8a1d7a91608ed6794ea4a79e2feab28"
-  name = "github.com/asxcandrew/gin-jwt"
+  digest = "1:7b34079b425365d6058190ed91818df799d76aaac9d4ccca4f903aa50dc78010"
+  name = "github.com/appleboy/gin-jwt"
   packages = ["."]
   pruneopts = "UT"
-  revision = "2b97bf2059a48c82f9937dddd89b364b426b25dd"
+  revision = "df10efdc5167e0a370b5ff5118363180e3298ed7"
 
 [[projects]]
   digest = "1:2f30fb22e56424a767d5734756a4cffc489fcbac43146edb15ca5bf4e233cf0d"
@@ -103,6 +95,14 @@
   revision = "04140366298a54a039076d798123ffa108fff46c"
 
 [[projects]]
+  digest = "1:edbef42561faa44c19129b68d1e109fbc1647f63239250391eadc8d0e7c9f669"
+  name = "github.com/kelseyhightower/envconfig"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "f611eb38b3875cc3bd991ca91c51d06446afa14c"
+  version = "v1.3.0"
+
+[[projects]]
   digest = "1:d4d17353dbd05cb52a2a52b7fe1771883b682806f68db442b436294926bbfafb"
   name = "github.com/mattn/go-isatty"
   packages = ["."]
@@ -173,13 +173,13 @@
   analyzer-name = "dep"
   analyzer-version = 1
   input-imports = [
-    "github.com/BurntSushi/toml",
-    "github.com/asxcandrew/gin-jwt",
+    "github.com/appleboy/gin-jwt",
     "github.com/casbin/casbin",
     "github.com/gin-gonic/gin",
     "github.com/go-pg/migrations",
     "github.com/go-pg/pg",
     "github.com/go-pg/pg/orm",
+    "github.com/kelseyhightower/envconfig",
     "golang.org/x/crypto/bcrypt",
     "gopkg.in/go-playground/validator.v8",
   ]

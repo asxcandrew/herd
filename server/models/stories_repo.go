@@ -14,6 +14,6 @@ type StoryResponse struct {
 }
 
 //QueryStories returns query for index path
-func QueryStories(stories *[]Story) *orm.Query {
-	return DB().Model(stories).Column("Author", "Tags")
+func QueryStories(story interface{}) *orm.Query {
+	return DB().Model(story).Column("Author", "Tags")
 }

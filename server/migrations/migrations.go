@@ -30,12 +30,12 @@ func main() {
 	flag.Parse()
 
 	options := pg.Options{
-		Addr:     config.Root().DB.Addr,
-		User:     config.Root().DB.User,
-		Password: config.Root().DB.Pass,
-		Database: config.Root().DB.Name,
+		Addr:     fmt.Sprintf("%s:%s", config.C.DBHost, config.C.DBPort),
+		User:     config.C.DBUser,
+		Password: config.C.DBPass,
+		Database: config.C.DBName,
 	}
-	if config.Root().DB.TLS {
+	if config.C.TLS {
 		options.TLSConfig = &tls.Config{InsecureSkipVerify: true}
 	}
 	db = pg.Connect(&options)

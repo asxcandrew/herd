@@ -1,6 +1,12 @@
-version: "3"
+version: "3.7"
 networks:
-  nginx-go:
+  localnet:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        -
+          subnet: 172.28.0.0/24
 services:
   nginx:
     image: nginx:1.15
@@ -12,7 +18,7 @@ services:
       - frontend
       - backend
     networks:
-      - nginx-go
+      - localnet
   frontend:
     build:
       context: client
@@ -22,7 +28,7 @@ services:
       - /usr/src/app/node_modules
       - /usr/src/app/.yarncache
     networks:
-      - nginx-go
+      - localnet
     environment:
       - NODE_ENV=development
   backend:
@@ -30,16 +36,20 @@ services:
       context: server
       dockerfile: Dockerfile.dev
     networks:
-      - nginx-go
+      - localnet
+    env_file: server/.env-dev
     environment:
-      DB_HOST: db
-      DB_PORT: "5432"
+      API_DBHOST: "172.28.0.10"
+      API_DBPORT: "5432"
     volumes:
       - ./server:/go/src/github.com/asxcandrew/herd/server
-  db:
+  database:
     image: postgres:10
     networks:
-      - nginx-go
+      # - localnet
+      localnet:
+        ipv4_address: 172.28.0.10
+
     ports:
       - "5432"
     environment:

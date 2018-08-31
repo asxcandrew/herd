@@ -5,8 +5,7 @@ networks:
     ipam:
       driver: default
       config:
-        -
-          subnet: 172.28.0.0/24
+        - subnet: 172.28.0.0/24
 services:
   nginx:
     image: nginx:1.15
@@ -31,6 +30,7 @@ services:
       - localnet
     environment:
       - NODE_ENV=development
+    env_file: .env
   backend:
     build:
       context: server
@@ -39,17 +39,15 @@ services:
       - localnet
     env_file: server/.env-dev
     environment:
-      API_DBHOST: "172.28.0.10"
-      API_DBPORT: "5432"
+      - API_DBHOST=172.28.0.10
+      - API_DBPORT=5432
     volumes:
       - ./server:/go/src/github.com/asxcandrew/herd/server
   database:
     image: postgres:10
     networks:
-      # - localnet
       localnet:
         ipv4_address: 172.28.0.10
-
     ports:
       - "5432"
     environment:

@@ -1,6 +1,0 @@
-FROM nginx:1.15
-
-COPY ./config/nginx.prod.conf /etc/nginx/nginx.conf
-COPY ./client/release /usr/share/nginx/html
-
-EXPOSE 80

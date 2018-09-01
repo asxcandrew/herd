@@ -1,20 +1,25 @@
 version: "3.7"
 networks:
-  nginx-go:
+  localnet:
 services:
   nginx:
-    build:
-      context: .
-      dockerfile: Dockerfile.prod.nginx.yml
-    ports:
-      - 80:80
+    image: nginx:1.15
+    volumes:
+      - /home/nginx.prod.conf.template:/etc/nginx/nginx.conf.template
+      - /home/release:/usr/share/nginx/html
     depends_on:
       - backend
+    env_file: .env
     networks:
-      - nginx-go
+      - localnet
+    ports:
+      - 80:80
+    environment:
+      - NGINX_SERVER_NAME=$DOMAIN_NAME
+    command: /bin/bash -c "envsubst '$$NGINX_SERVER_NAME' < /etc/nginx/nginx.conf.template > /etc/nginx/nginx.conf && exec nginx -g 'daemon off;'"
   backend:
     env_file: server/.env
     build:
       context: server
     networks:
-      - nginx-go
+      - localnet

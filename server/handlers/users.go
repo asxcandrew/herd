@@ -8,6 +8,19 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+//GetUser handler for users/:username
+func GetUser(c *gin.Context) {
+	var user *models.User
+	err := models.QueryStories(user).Where("username = ?", c.Param("username")).Select()
+
+	if err != nil {
+		c.JSON(http.StatusNotFound, gin.H{"status": http.StatusNotFound, "data": ""})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{"status": http.StatusOK, "data": user})
+}
+
 //CurrentUser handler for users/me
 func CurrentUser(c *gin.Context) {
 	claims := jwt.ExtractClaims(c)
@@ -26,12 +39,7 @@ func CurrentUser(c *gin.Context) {
 //UsernameAvalability handler for availability/:username
 func UsernameAvalability(c *gin.Context) {
 	username := c.Param("username")
-	availability, err := models.IsAvailableUsername(username)
+	availability := models.IsAvailableUsername(username)
 
-	if err != nil || !availability {
-		c.JSON(http.StatusNotFound, gin.H{"available": false})
-		return
-	}
-
-	c.JSON(http.StatusOK, gin.H{"available": true})
+	c.JSON(http.StatusOK, gin.H{"available": availability})
 }

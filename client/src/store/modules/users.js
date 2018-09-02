@@ -1,38 +1,43 @@
 import { UserService } from '@/services';
 import {
   CHANGE_SESSION,
+  ADD_USER,
 } from '../mutations.type'
 import {
   GET_CURRENT_USER,
+  GET_USER,
 } from '../actions.type';
 
-const state = {
-
+const initState = {
+  users: []
 };
 
-/**
- * Getters
- * @type {Object}
- */
+const state = Object.assign({}, initState)
+
 const getters = {
-
+  users: (state) => {
+    return state.feed
+  },
+  getUserByUsername: (state) => (username) => {
+    return state.users.find(user => users.username == username)
+  }
 };
 
-/**
- * Mutations
- * @type {Object}
- */
 const mutations = {
-
+  [ADD_USER] (state, user) {
+    state.users.push(user)
+  },
 };
 
-/**
- * Actions
- * @type {Object}
- */
 const actions = {
   [GET_CURRENT_USER]({ commit }) {
     return UserService.get('me')
+      .then((res) => {
+        commit(CHANGE_SESSION, { user: res.data.data });
+      });
+  },
+  [GET_USER]({ commit }, username) {
+    return UserService.get(username)
       .then((res) => {
         commit(CHANGE_SESSION, { user: res.data.data });
       });

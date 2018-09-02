@@ -17,7 +17,17 @@ class PublicResource extends BaseResource {
     const url = `/feed`;
     return this.api.get(url, {});
   };
-  
+
+  feedStory(uid){
+    const url = `/feed/${uid}`;
+    return this.api.get(url, {});
+  };
+
+  feedStoryBody(uid){
+    const url = `/feed/${uid}/body`;
+    return this.api.get(url, {});
+  };
+
   signup(data){
     const url = '/sign_up';
     return this.api.post(url, data);

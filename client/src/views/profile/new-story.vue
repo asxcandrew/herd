@@ -25,7 +25,7 @@ export default {
   },
   data() {
     return {
-      id: '',
+      uid: '',
       params: {
         html_body: 'Write your story...',
         title: 'Title',

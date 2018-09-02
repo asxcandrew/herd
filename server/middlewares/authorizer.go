@@ -38,10 +38,10 @@ func (a *basicAuthorizer) CheckPermission(r *http.Request) bool {
 }
 
 func (a *basicAuthorizer) getRole() string {
-	if a.context.Keys["JWT_PAYLOAD"] == nil {
+	claims := jwt.ExtractClaims(a.context)
+	if claims["userID"] == nil {
 		return models.GuestRole
 	}
-	claims := jwt.ExtractClaims(a.context)
 	return claims["userRole"].(string)
 }
 

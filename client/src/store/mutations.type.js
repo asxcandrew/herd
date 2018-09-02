@@ -4,3 +4,7 @@ export const REMOVE_STORY = 'removeStory';
 export const ADD_BODY_STORY = 'addBodyStory';
 export const DESTROY_SESSION = 'destroySession';
 export const CHANGE_SESSION = 'changeSession';
+export const SET_FEED = 'setFeed';
+export const ADD_FEED_STORY = 'addFeedStory';
+export const ADD_FEED_BODY = 'addFeedBody';
+export const ADD_USER = 'addUser';

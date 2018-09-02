@@ -7,14 +7,11 @@ type FullUserStruct struct {
 	Name     string `json:"name"`
 }
 
-func IsAvailableUsername(username string) (bool, error) {
+func IsAvailableUsername(username string) bool {
 	count, err := DB().Model((*User)(nil)).Where("username = ?", username).Count()
 	if err != nil {
-		return false, err
+		return false
 	}
 
-	if count == 0 {
-		return true, nil
-	}
-	return false, nil
+	return (count == 0)
 }

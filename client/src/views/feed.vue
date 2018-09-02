@@ -1,10 +1,9 @@
 <template>
   <el-row>
     <el-col
-      :span="8"
-      v-for="story in stories"
+      :span="12"
+      v-for="story in feed"
       :key="story.id"
-      :offset="1"
     >
       <el-card shadow="disabled">
         <img src="" class="image">
@@ -33,7 +32,7 @@ export default {
   name: 'feed',
   mixins: [ storyMixin ],
   computed: {
-    ...mapGetters(['stories']),
+    ...mapGetters(['feed']),
   },
   beforeRouteEnter (to, from, next) {
     next(vm => {

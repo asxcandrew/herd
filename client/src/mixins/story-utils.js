@@ -10,6 +10,10 @@ export default {
     },
     uidFromUri(uri){
       return uri.slice(-12);
+    },
+    countWords(story) {
+      var matches = story.html_body.match(/[\w\d\'\`-]+/gi);
+      return matches ? matches.length : 0;
     }
   }
 }

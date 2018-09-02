@@ -8,7 +8,7 @@
     </el-dialog>
     <el-row type="flex" class="row-bg header-wrapper" justify="center">
       <el-col :span="14">
-        <ul class="menu-left menu-block">
+        <ul class="menu-left ul-unstyled">
           <li>
             <router-link to="/" class="logo unstyled-link">Herd</router-link>
           </li>
@@ -17,7 +17,7 @@
             <span>{{ statusBar.notice }}</span>
           </li>
         </ul>
-        <ul class="menu-right menu-block">
+        <ul class="menu-right ul-unstyled">
           <li>
             <div :is="plugin"></div>
           </li>
@@ -122,18 +122,6 @@ export default {
   }
   .menu-left {
     float: left;
-  }
-  ul.menu-block {
-    padding: 0;
-    margin: 0;
-    display: flex;
-    li {
-      list-style: none;
-      margin-right: 1em;
-      &:last-child {
-        margin-right:0;
-      }
-    }
   }
   .menu-right {
     text-align: right;

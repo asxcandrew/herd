@@ -1,10 +1,11 @@
 import axios from 'axios';
 import auth from './auth';
-// import storage from './storage'
+
+const _rootApi = process.env.API_BASE;
 
 const createAxios = (url)=> {
   return axios.create({
-    baseURL: url,
+    baseURL: _rootApi + url,
     responseType: 'json',
     timeout: 5000,
     headers: {
@@ -17,8 +18,8 @@ const createAxios = (url)=> {
 };
 
 const instance = {
-  public: createAxios('/api/v1/p'),
-  authorized: createAxios('/api/v1/a'),
+  public: createAxios('/v1/p'),
+  authorized: createAxios('/v1/a'),
 };
 
 instance.authorized.interceptors.request.use((config) => {

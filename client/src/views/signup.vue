@@ -5,7 +5,7 @@
     <el-form ref="form" :model="form" :rules="rules">
       <el-form-item prop="username">
         <el-input v-model="form.username" :placeholder="$t('form.username.name')">
-          <template slot="append">@herd.something.com</template>
+          <template slot="append">@{{ domainName }}</template>
         </el-input>
       </el-form-item>
       <el-form-item prop="email">
@@ -49,6 +49,12 @@ import { PublicService } from '../services';
 
 export default {
   name: 'signup',
+  computed: {
+    domainName() {
+      console.log(process.env.API_BASE, process.env)
+      return process.env.DOMAIN_NAME
+    }
+  },
   methods: {
     showSignin() {
       this.$store.dispatch('showModal', 'signin');

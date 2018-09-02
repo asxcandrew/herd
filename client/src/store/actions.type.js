@@ -1,5 +1,7 @@
 export const FETCH_STORIES = 'fetchStories';
 export const FETCH_FEED = 'fetchFeed';
+export const GET_FEED_BODY = 'getFeedBody';
+export const GET_FEED_STORY = 'getFeedStory';
 export const GET_STORY = 'getStory';
 export const GET_STORY_BODY = 'getStoryBody';
 export const CREATE_STORY = 'createStory';
@@ -15,3 +17,4 @@ export const SIGN_OUT = 'signOut';
 export const SHOW_MODAL = 'showModal';
 export const CLOSE_MODAL = 'closeModal';
 export const GET_CURRENT_USER = 'getCurrentUser';
+export const GET_USER = 'getUser';

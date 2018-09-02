@@ -9,4 +9,5 @@ import (
 func UsersRoutes(route *gin.RouterGroup) {
 	user := route.Group("/users")
 	user.GET("me", H.CurrentUser)
+	// user.GET("/:username", H.GetUser)
 }

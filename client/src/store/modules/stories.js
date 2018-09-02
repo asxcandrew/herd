@@ -1,7 +1,6 @@
 import { StoryService, PublicService } from '@/services';
 import {
   FETCH_STORIES,
-  FETCH_FEED,
   GET_STORY,
   CREATE_STORY,
   UPDATE_STORY,
@@ -52,13 +51,6 @@ const mutations = {
 const actions = {
   [FETCH_STORIES] ({ commit }, params) {
     return StoryService.query(params.filter)
-      .then(({ data }) => {
-        commit(SET_STORIES, data.data)
-        return data
-      })
-  },
-  [FETCH_FEED] ({ commit }, params) {
-    return PublicService.feed()
       .then(({ data }) => {
         commit(SET_STORIES, data.data)
         return data

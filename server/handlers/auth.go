@@ -44,11 +44,10 @@ func AuthMiddleware() *jwt.GinJWTMiddleware {
 				}
 				return jwt.MapClaims{}
 			},
-			Unauthorized:  func(c *gin.Context, code int, message string) { c.Next() },
 			TokenLookup:   "header:Authorization",
 			TokenHeadName: "Bearer",
 			TimeFunc:      time.Now,
-			DisabledAbort: true,
+			// DisabledAbort: true,
 		}
 		err := authMiddleware.MiddlewareInit()
 

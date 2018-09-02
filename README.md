@@ -1,5 +1,3 @@
-mastodon аккаунт
-
 # HERD - Federated publishing platform
 
 > Federated publishing platform based on ActivityPub connected to the world of free social networking
@@ -21,7 +19,7 @@ This project combines several modern technologies that I like:
 
 > Anyone who's slightly familiar or want to try one of this technologies is welcomed to join.
 
-*([Submit a pull request](https://github.com/asxcandrew/herd/pulls)*
+*([Submit a pull request](https://github.com/asxcandrew/herd/pulls))*
 
 ## Development
 With [docker-compose](https://docs.docker.com/compose/) installed, run
@@ -57,8 +55,9 @@ Checklist to gauge how Herd`s development is going:
 
 ## Why?
 
-It’s any piece of software that implements ActivityPub. That software can be wildly different in how it looks and what it does! But the social graph–what we call the people and their connections–is the same.
+Software that implements ActivityPub can be wildly different in how it looks and what it does! But the social graph–what we call the people and their connections–is the same.
 
+- For rich juicy blogs, for users used to modern functionality Herd is the choice.
 - Mastodon is the software built around 500-character text posts.
 - You want a video platform? That’s PeerTube.
 - You want something centered on photos and pictures? PixelFed is here.

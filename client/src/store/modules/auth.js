@@ -1,5 +1,5 @@
 import { storage } from '@/utils';
-import { PublicService } from '@/services';
+import { MediaService, PublicService } from '@/services';
 import {
   SIGN_IN,
   SIGN_UP,
@@ -41,14 +41,20 @@ const actions = {
       email: form.email.trim(),
       password: form.password.trim(),
     }).then(res => {
-        commit(CHANGE_SESSION, { token: res.data.token, token_expiration: Date.parse(res.data.expire) });
+      commit(CHANGE_SESSION, 
+        { token: res.data.token, token_expiration: Date.parse(res.data.expire), user: res.data.user }
+      );
     }).then(_ => {
-      return dispatch(GET_CURRENT_USER);
+      return MediaService.get(state.session.user.media_id)
+    }).then(({data}) => {
+      commit(CHANGE_SESSION, {avatar: data.data});
     })
   },
   [SIGN_UP] ({ commit }, form ) {
     return PublicService.signup(form).then((res) => {
-      commit(CHANGE_SESSION, { token: res.data.token, token_expiration: res.data.expire });
+      commit(CHANGE_SESSION,
+        { token: res.data.token, token_expiration: Date.parse(res.data.expire), user: res.data.user }
+      );
     }).catch(() => {
       resolve(false);
     });

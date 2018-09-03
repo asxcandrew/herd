@@ -8,7 +8,7 @@ import (
 //Login service
 func Login(email string, password string) (*models.User, error) {
 	user := &models.User{}
-	err := models.DB().Model(user).Where("email = ?", email).Select()
+	err := models.DB().Model(user).Where("email = ?", email).Column("Media").Select()
 
 	if err != nil {
 		return nil, err

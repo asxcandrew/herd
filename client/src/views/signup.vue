@@ -51,7 +51,6 @@ export default {
   name: 'signup',
   computed: {
     domainName() {
-      console.log(process.env.API_BASE, process.env)
       return process.env.DOMAIN_NAME
     }
   },

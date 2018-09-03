@@ -16,6 +16,8 @@ type User struct {
 	Email             string    `json:"email" validate:"required,email"`
 	Name              string    `json:"name"`
 	Bio               string    `json:"bio"`
+	MediaID           uint64    `json:"media_id"`
+	Media             *Media    `json:"-"`
 	Role              string    `json:"-" validate:"required"`
 	EncryptedPassword string    `json:"-" validate:"required"`
 	CreatedAt         time.Time `json:"-"`

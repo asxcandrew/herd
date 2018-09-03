@@ -12,6 +12,6 @@ run-dev:
 	eval $(docker-machine env -u)
 	docker-compose -f docker-compose.dev.yml -p herd-dev up
 run-api-tests:
-	
+
 setup-dev:
 	docker-compose -f docker-compose.dev.yml -p herd-dev up --build

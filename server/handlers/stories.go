@@ -3,7 +3,6 @@ package handlers
 import (
 	"net/http"
 
-	jwt "github.com/appleboy/gin-jwt"
 	"github.com/asxcandrew/herd/server/services"
 
 	"github.com/asxcandrew/herd/server/models"
@@ -15,7 +14,7 @@ func CreateStory(c *gin.Context) {
 
 	if err := c.BindJSON(&json); err == nil {
 		story := &models.Story{
-			AuthorID: userId(c),
+			AuthorID: userID(c),
 			Title:    json.Title,
 			HTMLBody: json.HTMLBody,
 		}
@@ -37,7 +36,7 @@ func UpdateStory(c *gin.Context) {
 	story := &models.Story{}
 	findStory(c, story)
 
-	if story.AuthorID != userId(c) {
+	if story.AuthorID != userID(c) {
 		c.AbortWithStatus(http.StatusForbidden)
 		return
 	}
@@ -61,7 +60,7 @@ func DeleteStory(c *gin.Context) {
 	story := &models.Story{}
 	findStory(c, story)
 
-	if story.AuthorID != userId(c) {
+	if story.AuthorID != userID(c) {
 		c.AbortWithStatus(http.StatusForbidden)
 		return
 	}
@@ -85,7 +84,7 @@ func GetStory(c *gin.Context) {
 
 func QueryStories(c *gin.Context) {
 	var stories []models.Story
-	err := models.QueryStories(&stories).Where("author_id = ?", userId(c)).Select()
+	err := models.QueryStories(&stories).Where("author_id = ?", userID(c)).Select()
 
 	if err != nil || len(stories) == 0 {
 		c.JSON(http.StatusNotFound, gin.H{"status": http.StatusNotFound, "data": ""})
@@ -111,9 +110,4 @@ func findStory(c *gin.Context, story *models.Story) {
 	if err != nil {
 		c.AbortWithStatus(http.StatusNotFound)
 	}
-}
-
-func userId(c *gin.Context) uint64 {
-	claims := jwt.ExtractClaims(c)
-	return uint64(claims["userID"].(float64))
 }

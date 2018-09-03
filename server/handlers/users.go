@@ -2,16 +2,17 @@ package handlers
 
 import (
 	"net/http"
+	"strconv"
 
-	jwt "github.com/appleboy/gin-jwt"
 	"github.com/asxcandrew/herd/server/models"
+	"github.com/asxcandrew/herd/server/services"
 	"github.com/gin-gonic/gin"
 )
 
-//GetUser handler for users/:username
+//GetUser handler for GET users/:username
 func GetUser(c *gin.Context) {
-	var user *models.User
-	err := models.QueryStories(user).Where("username = ?", c.Param("username")).Select()
+	user := &models.User{}
+	err := models.DB().Model(user).Where("username = ?", c.Param("username")).Select()
 
 	if err != nil {
 		c.JSON(http.StatusNotFound, gin.H{"status": http.StatusNotFound, "data": ""})
@@ -21,15 +22,26 @@ func GetUser(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"status": http.StatusOK, "data": user})
 }
 
-//CurrentUser handler for users/me
-func CurrentUser(c *gin.Context) {
-	claims := jwt.ExtractClaims(c)
-	userID := uint64(claims["userID"].(float64))
-	user := &models.User{ID: userID}
-	err := models.DB().Select(user)
+//UpdateUser handler for PUT users/:username
+func UpdateUser(c *gin.Context) {
+	var json models.UserResponse
+	user := currentUser(c)
 
-	if err != nil {
-		c.JSON(http.StatusNotFound, gin.H{"status": http.StatusNotFound, "data": ""})
+	if err := c.BindJSON(&json); err == nil {
+		err := services.UpdateUser(user, &json)
+
+		if err != nil {
+			c.JSON(http.StatusBadRequest, gin.H{"status": http.StatusBadRequest, "data": err})
+			return
+		}
+	} else {
+		c.JSON(http.StatusBadRequest, gin.H{"status": http.StatusBadRequest, "data": err})
+		return
+	}
+
+	id, _ := strconv.Atoi(c.Param("id"))
+	if uint64(id) != userID(c) {
+		c.AbortWithStatus(http.StatusForbidden)
 		return
 	}
 

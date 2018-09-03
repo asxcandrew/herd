@@ -14,7 +14,7 @@
     <div class="author-card__body">
       {{ author.name }}
       <el-button size="mini" plain v-if="!small">Follow</el-button><br>
-      <ul class="ul-unstyled">
+      <ul class="ul-unstyled ul-inline">
         <li class="substring">{{ formatDate(story.publised_at) }}</li>
         <li class="substring" v-if="story.html_body">
           {{ countWords(story)}} words

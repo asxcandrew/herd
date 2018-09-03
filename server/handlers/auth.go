@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	"fmt"
 	"log"
 	"net/http"
 	"time"
@@ -11,8 +12,6 @@ import (
 	"github.com/asxcandrew/herd/server/services"
 	"github.com/gin-gonic/gin"
 )
-
-var authMiddleware *jwt.GinJWTMiddleware
 
 type signupStruct struct {
 	Email    string `json:"email" binding:"required"`
@@ -26,6 +25,17 @@ type loginStruct struct {
 	Password string `form:"password" json:"password" binding:"required"`
 }
 
+var authMiddleware *jwt.GinJWTMiddleware
+
+var authResponse = func(c *gin.Context, token string, expire time.Time, user interface{}) {
+	c.JSON(http.StatusOK, gin.H{
+		"user":   user,
+		"code":   http.StatusOK,
+		"token":  token,
+		"expire": expire.Format(time.RFC3339),
+	})
+}
+
 //AuthMiddleware provides jwt middleware object
 func AuthMiddleware() *jwt.GinJWTMiddleware {
 	if authMiddleware == nil {
@@ -35,19 +45,25 @@ func AuthMiddleware() *jwt.GinJWTMiddleware {
 			Timeout:       time.Hour * 24,
 			MaxRefresh:    time.Hour,
 			Authenticator: Login,
+			LoginResponse: func(c *gin.Context, code int, token string, expire time.Time) {
+				c.Request.Header.Set("Authorization", authMiddleware.TokenHeadName+" "+token)
+
+				claims, _ := authMiddleware.GetClaimsFromJWT(c)
+				authResponse(c, token, expire, claims["user"])
+			},
 			PayloadFunc: func(data interface{}) jwt.MapClaims {
 				if v, ok := data.(*models.User); ok {
+					fmt.Println("PayloadFunc", data)
 					return jwt.MapClaims{
+						"user":     data,
 						"userRole": v.Role,
 						"userID":   v.ID,
 					}
 				}
 				return jwt.MapClaims{}
 			},
-			TokenLookup:   "header:Authorization",
-			TokenHeadName: "Bearer",
-			TimeFunc:      time.Now,
-			// DisabledAbort: true,
+			TokenLookup: "header:Authorization",
+			TimeFunc:    time.Now,
 		}
 		err := authMiddleware.MiddlewareInit()
 
@@ -76,12 +92,9 @@ func Signup(c *gin.Context) {
 		}
 
 		mw := AuthMiddleware()
-		userToken, t, _ := mw.TokenGenerator(user)
+		token, t, _ := mw.TokenGenerator(user)
 
-		c.JSON(http.StatusOK, gin.H{
-			"token":  userToken,
-			"expire": t,
-		})
+		authResponse(c, token, t, user)
 	} else {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 	}

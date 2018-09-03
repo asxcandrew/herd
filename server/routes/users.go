@@ -8,6 +8,6 @@ import (
 //UsersRoutes users path group
 func UsersRoutes(route *gin.RouterGroup) {
 	user := route.Group("/users")
-	user.GET("me", H.CurrentUser)
-	// user.GET("/:username", H.GetUser)
+	user.GET("/:username", H.GetUser)
+	user.PUT("/:id", H.UpdateUser)
 }

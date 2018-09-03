@@ -1,5 +1,6 @@
 import PublicService from './public';
-import UserService from './users';
+import UsersService from './users';
 import StoryService from './stories';
+import MediaService from './media';
 
-export { PublicService, UserService, StoryService };
+export { PublicService, UsersService, StoryService, MediaService };

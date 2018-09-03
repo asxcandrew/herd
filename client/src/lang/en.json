@@ -30,6 +30,9 @@
         "lastEdited": "Last edited {date}",
         "deleteButton": "delete",
         "editButton": "edit"
+      },
+      "settings": {
+        "title": "Settings"
       }
     }
   },

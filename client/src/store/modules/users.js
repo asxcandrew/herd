@@ -1,10 +1,8 @@
-import { UserService } from '@/services';
+import { UsersService } from '@/services';
 import {
-  CHANGE_SESSION,
   ADD_USER,
 } from '../mutations.type'
 import {
-  GET_CURRENT_USER,
   GET_USER,
 } from '../actions.type';
 
@@ -30,16 +28,10 @@ const mutations = {
 };
 
 const actions = {
-  [GET_CURRENT_USER]({ commit }) {
-    return UserService.get('me')
-      .then((res) => {
-        commit(CHANGE_SESSION, { user: res.data.data });
-      });
-  },
   [GET_USER]({ commit }, username) {
-    return UserService.get(username)
+    return UsersService.get(username)
       .then((res) => {
-        commit(CHANGE_SESSION, { user: res.data.data });
+        commit(ADD_USER, res.data.data);
       });
   },
 };

@@ -8,7 +8,7 @@
     </el-dialog>
     <el-row type="flex" class="row-bg header-wrapper" justify="center">
       <el-col :lg="14" :sm="24">
-        <ul class="menu-left ul-unstyled">
+        <ul class="menu-left ul-unstyled ul-inline">
           <li>
             <router-link to="/" class="logo unstyled-link">Herd</router-link>
           </li>
@@ -17,7 +17,7 @@
             <span>{{ statusBar.notice }}</span>
           </li>
         </ul>
-        <ul class="menu-right ul-unstyled">
+        <ul class="menu-right ul-unstyled ul-inline">
           <li>
             <div :is="plugin"></div>
           </li>
@@ -25,6 +25,7 @@
             <el-dropdown trigger="hover">
               <span class="el-dropdown-link userinfo-inner">
                 <avatar
+                  :src="session.avatar.url"
                   :username="session.user.name"
                   :size="36"
                 />
@@ -135,6 +136,11 @@ export default {
       border-radius: 20px;
       margin: 10px 0px 10px 10px;
       float: right;
+    }
+  }
+  .vue-avatar--wrapper {
+    &::after{
+      content: "";
     }
   }
 }

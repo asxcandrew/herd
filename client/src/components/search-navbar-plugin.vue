@@ -2,7 +2,7 @@
   <div class="navbar-plugin search-plugin">
     <el-input
       size="small"
-      class="search-input"
+      class="search-input hidden-sm-and-down"
       placeholder="Search herd"
       >
       <i
@@ -10,6 +10,11 @@
         slot="suffix"
       />
     </el-input>
+    <el-button
+      icon="el-icon-search"
+      class="hidden-md-and-up"
+      type="text">
+    </el-button>
   </div>
 </template>
 

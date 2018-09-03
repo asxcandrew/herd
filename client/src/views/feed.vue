@@ -1,13 +1,14 @@
 <template>
   <el-row>
     <el-col
-      :span="12"
+      :lg="12"
+      :sm="24"
       v-for="story in feed"
       :key="story.id"
     >
       <el-card shadow="disabled">
         <img src="" class="image">
-        <div style="padding: 14px;">
+        <div>
           <h3>
             <router-link
               :to="{ name: 'show-story', params: { uri: storyUri(story) }}"
@@ -15,7 +16,8 @@
             >{{ story.title }}</router-link>
           </h3>
           <div class="bottom clearfix">
-            <time class="substring">{{ formatDate(story.publised_at) }}</time>
+            <author-card :author="story.user" :story="story" :small="true" />
+            <!-- <time class="substring">{{ formatDate(story.publised_at) }}</time> -->
           </div>
         </div>
       </el-card>
@@ -27,10 +29,14 @@
 import { FETCH_FEED } from '@/store/actions.type';
 import { mapGetters } from 'vuex';
 import storyMixin from '@/mixins/story-utils';
+import authorCard from '@/components/author-card';
 
 export default {
   name: 'feed',
   mixins: [ storyMixin ],
+  components: {
+    authorCard
+  },
   computed: {
     ...mapGetters(['feed']),
   },

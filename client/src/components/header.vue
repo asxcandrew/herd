@@ -7,7 +7,7 @@
       <signup/>
     </el-dialog>
     <el-row type="flex" class="row-bg header-wrapper" justify="center">
-      <el-col :span="14">
+      <el-col :lg="14" :sm="24">
         <ul class="menu-left ul-unstyled">
           <li>
             <router-link to="/" class="logo unstyled-link">Herd</router-link>
@@ -50,7 +50,7 @@
             </el-dropdown>
           </li>
           <li v-else>
-            <el-button type="text" @click="showModal('signin')">
+            <el-button type="text" @click="showModal('signin')" class="hidden-sm-and-down">
               {{ $t('components.header.signInButton') }}
             </el-button>
             <el-button type="primary" @click="showModal('signup')" plain>

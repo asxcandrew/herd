@@ -3,7 +3,11 @@ import dateFormat from 'dateformat';
 export default {
   methods: {
     formatDate(date){
-      return dateFormat(date, 'mmm d yyyy');
+      if (dateFormat(date, 'yyyy') == dateFormat(new Date, 'yyyy')){
+        return dateFormat(date, 'mmm d');
+      } else {
+        return dateFormat(date, 'm/d/yyyy');
+      }
     },
     storyUri(story){
       return `${story.link}-${story.uid}`;

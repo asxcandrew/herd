@@ -1,29 +1,12 @@
 <template>
   <el-row
     v-if="isStoryReady"
-    justify="space-around"
+    justify="center"
   >
-    <el-col :span="20" class="author-card__wrapper">
-      <div class="author-card__avatar">
-        <router-link
-          :to="{ name: 'public-profile', params: { username: story.user.username }}"
-          class="unstyled-link">
-          <avatar
-            :username="story.user.name"
-            :size="60"
-          />
-        </router-link>
-      </div>
-      <div class="author-card__body">
-        {{ story.user.name }}
-        <el-button size="mini" plain>Follow</el-button><br>
-        <ul class="ul-unstyled">
-          <li class="substring">{{ formatDate(story.publised_at) }}</li>
-          <li class="substring">{{ countWords(story) }}</li>
-        </ul>
-      </div>
+    <el-col :span="24">
+      <author-card :author="story.user" :story="story" />
     </el-col>
-    <el-col :span="20" class="public-story-container">
+    <el-col :span="24" class="public-story-container">
       <h2>{{ story.title }}</h2>
       <div v-html="story.html_body"></div>
     </el-col>
@@ -35,14 +18,14 @@ import {
   GET_FEED_STORY,
   GET_FEED_BODY,
 } from '@/store/actions.type';
+import authorCard from '@/components/author-card';
 import storyMixin from '@/mixins/story-utils';
-import Avatar from 'vue-avatar';
 
 export default {
   name: 'show-story',
   mixins: [storyMixin],
   components: {
-    Avatar
+    authorCard,
   },
   data() {
     return {
@@ -73,11 +56,4 @@ export default {
   font-size: 15pt;
   line-height: 1.3;
 }
-.author-card__wrapper{
-  display: flex;
-  .author-card__avatar{
-    margin-right: 10px;
-  }
-}
-
 </style>

@@ -5,4 +5,4 @@ COPY build /home/builds
 COPY access_model.conf /home/builds
 COPY access_policy.csv /home/builds
 ENTRYPOINT ["./server"]
-EXPOSE 8080
+EXPOSE 8000

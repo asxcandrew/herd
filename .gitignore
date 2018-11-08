@@ -3,7 +3,7 @@ node_modules/
 db/dbdata
 server/vendor
 server/build
-client/release/
+client/dist/
 server/assets/
 /dist/
 npm-debug.log*

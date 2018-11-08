@@ -1,7 +1,7 @@
 import axios from 'axios';
 import auth from './auth';
 
-const _rootApi = process.env.API_BASE;
+const _rootApi = '/api';
 
 const createAxios = (url)=> {
   return axios.create({

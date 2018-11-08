@@ -5,6 +5,9 @@ body {
   -moz-osx-font-smoothing: grayscale;
   color: map-get($colors, font-primary);
 }
+#app{
+  height:100vh;
+}
 
 .dialog-custom{
   padding: 0 10vw;

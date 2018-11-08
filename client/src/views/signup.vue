@@ -51,7 +51,7 @@ export default {
   name: 'signup',
   computed: {
     domainName() {
-      return process.env.DOMAIN_NAME
+      return 'herd.anonbecon.com'
     }
   },
   methods: {

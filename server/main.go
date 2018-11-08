@@ -11,5 +11,5 @@ func main() {
 	routes.ApiRoutes(r)
 
 	// TODO: Pass port number in env variable
-	r.Run(":8080")
+	r.Run(":8000")
 }

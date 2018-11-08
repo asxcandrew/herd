@@ -18,4 +18,4 @@ RUN chmod +x /wait
 ## Launch the wait tool and then your application
 CMD /wait && go run migrations/*.go && watcher -run github.com/asxcandrew/herd/server
 
-EXPOSE 8080
+EXPOSE 8000

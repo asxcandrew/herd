@@ -1,9 +1,9 @@
-FROM node:8-slim
+FROM node:9-slim
 
 ENV NPM_CONFIG_LOGLEVEL warn
 
 COPY . /usr/src/app
 WORKDIR /usr/src/app
-CMD	yarn install --cache-folder ./.yarncache && npm run dev
+CMD	yarn install --cache-folder ./.yarncache && yarn serve
 
-EXPOSE 90
+EXPOSE 8080

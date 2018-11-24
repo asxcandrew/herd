@@ -6,6 +6,7 @@
         class="unstyled-link">
         <avatar
           v-if="!small"
+          :src="author.avatar"
           :username="author.name"
           :size="60"
         />

@@ -7,6 +7,17 @@ import store from '@/store';
 import router from '@/router';
 import i18n from '@/lang';
 
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { faBold, faItalic,faCode, faLink, faTrash, faPlus } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+
+library.add(faBold);
+library.add(faItalic);
+library.add(faLink);
+library.add(faCode);
+library.add(faTrash);
+library.add(faPlus);
+
 sync(store, router, { moduleName: 'route' });
 
 Vue.use(Element);
@@ -16,6 +27,7 @@ import defaultLayout from '@/views/layout';
 import storyNavbarPlugin from '@/components/story-navbar-plugin';
 import searchNavbarPlugin from '@/components/search-navbar-plugin';
 
+Vue.component('font-awesome-icon', FontAwesomeIcon)
 Vue.component('default-layout', defaultLayout);
 Vue.component('story-navbar-plugin', storyNavbarPlugin);
 Vue.component('search-navbar-plugin', searchNavbarPlugin);

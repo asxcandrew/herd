@@ -1,17 +1,17 @@
 <template>
   <div>
-    <editor :story="story" v-if="story"/>
+    <text-editor :story="story" v-if="story"/>
   </div>
 </template>
 
 <script>
-import editor from '@/components/editor';
+import textEditor from '@/components/text-editor';
 import { CREATE_STORY } from '@/store/actions.type';
 
 export default {
   name: 'new-story',
   components: {
-    editor,
+    textEditor,
   },
   created() {
     this.$store.dispatch(CREATE_STORY, this.params).then(story => {

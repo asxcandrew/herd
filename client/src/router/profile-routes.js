@@ -1,4 +1,6 @@
-export default [
+const ProxyComponent = { render(h) { return h('router-view') }};
+
+const router = [
   {
     name: 'me',
     path: '/me',
@@ -27,15 +29,17 @@ export default [
         name: 'stories',
         path: 'stories',
         redirect: { name: 'drafts' },
-        component: { template: '<router-view></router-view>' },
+        component: ProxyComponent,
         children: [
           {
             name: 'drafts',
             path: 'drafts',
             component: require('@/views/profile/stories').default,
-          }
+          },
         ],
       },
     ],
   },
 ];
+
+export default router;

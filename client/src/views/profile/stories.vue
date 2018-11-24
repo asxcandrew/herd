@@ -23,7 +23,7 @@
             :story=story
           />
         </el-row>
-        </el-tab-pane>
+      </el-tab-pane>
     </el-tabs>
   </div>
 </template>

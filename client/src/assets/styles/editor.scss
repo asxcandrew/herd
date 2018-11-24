@@ -1,0 +1,149 @@
+// --- EDITOR ---
+
+.editor {
+  position: relative;
+  max-width: 50rem;
+  margin: 0 auto 5rem auto;
+
+  // --- MENUBUBBLE ---
+
+  &__menububble {
+    font-size: 11pt;
+    position: absolute;
+    display: flex;
+    z-index: 20;
+    background: map-get($colors, editor-black);
+    border-radius: 5px;
+    // padding: 0.3rem;
+    // margin-bottom: 0.5rem;
+    transform: translateX(-50%);
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.2s, visibility 0.2s;
+
+    &.is-active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .menububble__button {
+      display: inline-flex;
+      background: transparent;
+      border: 0;
+      color: map-get($colors, editor-white);
+      padding: 0.5rem 0.5rem;
+      margin-right: 0.2rem;
+      border-radius: 3px;
+      cursor: pointer;
+
+      &:last-child {
+        margin-right: 0;
+      }
+
+      &:hover {
+        background-color: rgba(map-get($colors, editor-white), 0.1);
+      }
+
+      &.is-active {
+        background-color: rgba(map-get($colors, editor-white), 0.2);
+      }
+      span {
+        margin-right: 0.2rem;
+      }
+    }
+
+    &__form {
+      display: flex;
+      align-items: center;
+    }
+
+    &__input {
+      font: inherit;
+      border: none;
+      background: transparent;
+      color: map-get($colors, editor-white);
+    }
+  }
+
+
+  &__floating-menu {
+    position: absolute;
+    margin-top: -0.25rem;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.2s, visibility 0.2s;
+    &.is-active {
+      opacity: 1;
+      visibility: visible;
+    }
+    .floating-menu__button{
+      font-size: 15pt;
+    }
+  }
+
+  &__content {
+    * {
+      &:focus {
+        outline: none;
+      }
+    }
+    pre {
+      padding: 0.7rem 1rem;
+      border-radius: 5px;
+      background: map-get($colors, editor-black);
+      color: map-get($colors, editor-white);
+      font-size: 0.8rem;
+      overflow-x: auto;
+
+      code {
+        display: block;
+      }
+    }
+
+    p {
+      &.is-empty:first-child::before {
+        content: 'Start typing…';
+        float: left;
+        color: #aaa;
+        pointer-events: none;
+        height: 0;
+        font-style: italic;
+      }
+      code {
+        display: inline-block;
+        padding: 0 0.4rem;
+        border-radius: 5px;
+        font-size: 0.8rem;
+        font-weight: bold;
+        background: rgba(map-get($colors, editor-black), 0.1);
+        color: rgba(map-get($colors, editor-black), 0.8);
+      }
+    }
+
+    ul,
+    ol {
+      padding-left: 1rem;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    blockquote {
+      border-left: 3px solid rgba(map-get($colors, editor-black), 0.1);
+      color: rgba(map-get($colors, editor-black), 0.8);
+      padding-left: 0.8rem;
+      font-style: italic;
+
+      p {
+        margin: 0;
+      }
+    }
+
+    img {
+      max-width: 100%;
+      border-radius: 3px;
+    }
+
+  }
+}
